@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Flame, Trophy, Award, Code2 } from "lucide-react";
+import { Flame, Trophy, Award, Code2, Zap } from "lucide-react";
 import { heroStats, badges } from "@/lib/mockData";
 
 const statCards = [
