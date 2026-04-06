@@ -25,7 +25,7 @@ const Index = () => {
           <GoalsSection />
         </div>
         <Insights />
-        <LeaderboardPreview />
+        
       </div>
     </DashboardLayout>
   );
