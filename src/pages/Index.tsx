@@ -1,16 +1,34 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { DashboardLayout } from "@/components/DashboardLayout";
+import { HeroStats } from "@/components/dashboard/HeroStats";
+import { ContributionGraph } from "@/components/dashboard/ContributionGraph";
+import { PlatformCards } from "@/components/dashboard/PlatformCards";
+import { RatingGraph } from "@/components/dashboard/RatingGraph";
+import { Insights } from "@/components/dashboard/Insights";
+import { LeaderboardPreview } from "@/components/dashboard/LeaderboardPreview";
+import { GoalsSection } from "@/components/dashboard/GoalsSection";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <DashboardLayout>
+      <div className="max-w-6xl mx-auto space-y-4 md:space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold font-heading text-foreground">Dashboard</h1>
+          <p className="text-sm text-muted-foreground font-mono mt-1">Track your competitive programming journey</p>
+        </div>
+        <HeroStats />
+        <ContributionGraph />
+        <PlatformCards />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
+          <div className="lg:col-span-2">
+            <RatingGraph />
+          </div>
+          <GoalsSection />
+        </div>
+        <Insights />
+        <LeaderboardPreview />
+      </div>
+    </DashboardLayout>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
