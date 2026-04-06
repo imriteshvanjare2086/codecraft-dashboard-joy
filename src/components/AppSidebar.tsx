@@ -29,9 +29,9 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="p-4">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <Flame className="h-4 w-4 text-primary-foreground" />
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/70 shadow-lg shadow-primary/20">
+            <Flame className="h-4.5 w-4.5 text-primary-foreground" />
           </div>
           {!collapsed && (
             <span className="text-lg font-bold font-heading text-foreground tracking-tight">
@@ -42,7 +42,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-muted-foreground/60 uppercase text-[10px] tracking-widest">
+          <SidebarGroupLabel className="text-muted-foreground/50 uppercase text-[10px] tracking-[0.2em] font-mono">
             Menu
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -53,7 +53,7 @@ export function AppSidebar() {
                     <NavLink
                       to={item.url}
                       end={item.url === "/"}
-                      className="hover:bg-sidebar-accent transition-colors"
+                      className="rounded-xl hover:bg-sidebar-accent transition-all duration-200"
                       activeClassName="bg-sidebar-accent text-primary font-medium"
                     >
                       <item.icon className="mr-2 h-4 w-4" />

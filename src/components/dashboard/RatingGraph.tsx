@@ -1,37 +1,54 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import { motion, AnimatePresence } from "framer-motion";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Area, AreaChart } from "recharts";
 import { ratingHistory } from "@/lib/mockData";
+import { TrendingUp } from "lucide-react";
 
 type Platform = "codeforces" | "leetcode";
 
-const platformConfig: Record<Platform, { label: string; color: string; cssColor: string }> = {
-  codeforces: { label: "Codeforces", color: "hsl(215, 80%, 55%)", cssColor: "text-codeforces" },
-  leetcode: { label: "LeetCode", color: "hsl(36, 100%, 50%)", cssColor: "text-leetcode" },
+const platformConfig: Record<Platform, { label: string; color: string; cssColor: string; gradient: string }> = {
+  codeforces: { label: "Codeforces", color: "hsl(215, 80%, 55%)", cssColor: "text-codeforces", gradient: "from-codeforces/20" },
+  leetcode: { label: "LeetCode", color: "hsl(36, 100%, 50%)", cssColor: "text-leetcode", gradient: "from-leetcode/20" },
 };
 
 export function RatingGraph() {
   const [platform, setPlatform] = useState<Platform>("codeforces");
   const data = ratingHistory[platform];
   const config = platformConfig[platform];
+  const latest = data[data.length - 1];
+  const prev = data[data.length - 2];
+  const delta = latest.rating - prev.rating;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.65 }}
-      className="rounded-xl border border-border bg-card p-4 md:p-5"
+      className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-5 h-full"
     >
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-heading font-semibold text-foreground">Rating History</h3>
-        <div className="flex gap-1 rounded-lg bg-muted p-0.5">
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-secondary">
+            <TrendingUp className="h-4 w-4 text-foreground" />
+          </div>
+          <div>
+            <h3 className="text-sm font-heading font-semibold text-foreground">Rating History</h3>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className={`text-xs font-mono font-bold ${config.cssColor}`}>{latest.rating}</span>
+              <span className={`text-[10px] font-mono ${delta >= 0 ? "text-primary" : "text-destructive"}`}>
+                {delta >= 0 ? "+" : ""}{delta}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-1 rounded-xl bg-muted/80 p-1 border border-border/50">
           {(Object.keys(platformConfig) as Platform[]).map((p) => (
             <button
               key={p}
               onClick={() => setPlatform(p)}
-              className={`px-3 py-1 rounded-md text-xs font-mono transition-colors ${
+              className={`relative px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 ${
                 platform === p
-                  ? `bg-card ${platformConfig[p].cssColor} font-semibold`
+                  ? `bg-card shadow-sm ${platformConfig[p].cssColor} font-semibold`
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -42,39 +59,47 @@ export function RatingGraph() {
       </div>
       <div className="h-[220px]">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(228, 10%, 18%)" />
+          <AreaChart data={data}>
+            <defs>
+              <linearGradient id={`gradient-${platform}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={config.color} stopOpacity={0.2} />
+                <stop offset="100%" stopColor={config.color} stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(228, 12%, 14%)" />
             <XAxis
               dataKey="contest"
-              tick={{ fontSize: 10, fill: "hsl(215, 12%, 50%)" }}
-              axisLine={{ stroke: "hsl(228, 10%, 18%)" }}
+              tick={{ fontSize: 10, fill: "hsl(215, 12%, 40%)" }}
+              axisLine={{ stroke: "hsl(228, 12%, 14%)" }}
               tickLine={false}
             />
             <YAxis
-              tick={{ fontSize: 10, fill: "hsl(215, 12%, 50%)" }}
+              tick={{ fontSize: 10, fill: "hsl(215, 12%, 40%)" }}
               axisLine={false}
               tickLine={false}
               domain={["dataMin - 50", "dataMax + 50"]}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(228, 12%, 11%)",
-                border: "1px solid hsl(228, 10%, 18%)",
-                borderRadius: "8px",
+                backgroundColor: "hsl(228, 14%, 10%)",
+                border: "1px solid hsl(228, 12%, 18%)",
+                borderRadius: "12px",
                 fontSize: "12px",
                 fontFamily: "JetBrains Mono",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
               }}
               labelStyle={{ color: "hsl(210, 20%, 92%)" }}
             />
-            <Line
+            <Area
               type="monotone"
               dataKey="rating"
               stroke={config.color}
-              strokeWidth={2}
-              dot={{ fill: config.color, r: 4 }}
-              activeDot={{ r: 6, strokeWidth: 2, stroke: "hsl(228, 12%, 11%)" }}
+              strokeWidth={2.5}
+              fill={`url(#gradient-${platform})`}
+              dot={{ fill: config.color, r: 4, strokeWidth: 2, stroke: "hsl(228, 14%, 10%)" }}
+              activeDot={{ r: 6, strokeWidth: 3, stroke: "hsl(228, 14%, 10%)" }}
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
     </motion.div>

@@ -6,35 +6,35 @@
 
 @layer base {
   :root {
-    --background: 228 12% 8%;
+    --background: 228 14% 7%;
     --foreground: 210 20% 92%;
 
-    --card: 228 12% 11%;
+    --card: 228 14% 10%;
     --card-foreground: 210 20% 92%;
 
-    --popover: 228 12% 11%;
+    --popover: 228 14% 10%;
     --popover-foreground: 210 20% 92%;
 
     --primary: 142 60% 50%;
-    --primary-foreground: 228 12% 8%;
+    --primary-foreground: 228 14% 7%;
 
-    --secondary: 228 12% 16%;
+    --secondary: 228 14% 15%;
     --secondary-foreground: 210 20% 82%;
 
-    --muted: 228 10% 14%;
+    --muted: 228 12% 13%;
     --muted-foreground: 215 12% 50%;
 
     --accent: 142 60% 50%;
-    --accent-foreground: 228 12% 8%;
+    --accent-foreground: 228 14% 7%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 228 10% 18%;
-    --input: 228 10% 18%;
+    --border: 228 12% 16%;
+    --input: 228 12% 16%;
     --ring: 142 60% 50%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
     /* Platform colors */
     --leetcode: 36 100% 50%;
@@ -42,26 +42,26 @@
     --codechef: 145 55% 45%;
 
     /* Glow effects */
-    --glow-primary: 0 0 20px hsl(142 60% 50% / 0.15);
-    --glow-leetcode: 0 0 20px hsl(36 100% 50% / 0.15);
-    --glow-codeforces: 0 0 20px hsl(215 80% 55% / 0.15);
-    --glow-codechef: 0 0 20px hsl(145 55% 45% / 0.15);
+    --glow-primary: 0 0 30px hsl(142 60% 50% / 0.12), 0 0 60px hsl(142 60% 50% / 0.06);
+    --glow-leetcode: 0 0 30px hsl(36 100% 50% / 0.12), 0 0 60px hsl(36 100% 50% / 0.06);
+    --glow-codeforces: 0 0 30px hsl(215 80% 55% / 0.12), 0 0 60px hsl(215 80% 55% / 0.06);
+    --glow-codechef: 0 0 30px hsl(145 55% 45% / 0.12), 0 0 60px hsl(145 55% 45% / 0.06);
 
     /* Contribution graph */
-    --contrib-empty: 228 10% 14%;
+    --contrib-empty: 228 12% 12%;
     --contrib-l1: 142 60% 20%;
     --contrib-l2: 142 60% 32%;
     --contrib-l3: 142 60% 44%;
     --contrib-l4: 142 60% 56%;
 
     /* Sidebar */
-    --sidebar-background: 228 12% 6%;
+    --sidebar-background: 228 16% 5%;
     --sidebar-foreground: 210 15% 65%;
     --sidebar-primary: 142 60% 50%;
-    --sidebar-primary-foreground: 228 12% 8%;
-    --sidebar-accent: 228 12% 12%;
+    --sidebar-primary-foreground: 228 14% 7%;
+    --sidebar-accent: 228 14% 11%;
     --sidebar-accent-foreground: 210 20% 92%;
-    --sidebar-border: 228 10% 15%;
+    --sidebar-border: 228 12% 13%;
     --sidebar-ring: 142 60% 50%;
 
     --font-heading: 'Space Grotesk', sans-serif;
@@ -85,16 +85,61 @@
   }
 }
 
+@layer utilities {
+  .glass {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50;
+  }
+  .glass-strong {
+    @apply bg-card/80 backdrop-blur-2xl border border-border/60;
+  }
+  .card-hover {
+    @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5;
+  }
+  .card-glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+  .card-glow-leetcode {
+    box-shadow: var(--glow-leetcode);
+  }
+  .card-glow-codeforces {
+    box-shadow: var(--glow-codeforces);
+  }
+  .card-glow-codechef {
+    box-shadow: var(--glow-codechef);
+  }
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.3), transparent 50%, hsl(var(--primary) / 0.1));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--border));
   border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.3);
 }
 
 /* Contribution cell animation */
@@ -105,4 +150,15 @@
 }
 .contrib-cell {
   animation: cell-pop 0.3s ease-out forwards;
+}
+
+/* Smooth gradient background noise texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 0%, hsl(var(--primary) / 0.04) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 100%, hsl(var(--codeforces) / 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
 }
