@@ -42,7 +42,7 @@ const earnedCount = badges.filter((b) => b.earned).length;
 export function HeroStats() {
   return (
     <div className="space-y-3 md:space-y-4">
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         {statCards.map((card, i) => (
           <motion.div
             key={card.label}
