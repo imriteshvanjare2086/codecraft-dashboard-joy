@@ -20,7 +20,6 @@ const levelColors = [
 ];
 
 const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const DAY_LABELS = ["Sun", "", "Tue", "", "Thu", "", "Sat"];
 
 type DayCell = { date: string; count: number };
 
@@ -29,7 +28,6 @@ export function ContributionGraph() {
   const totalActive = data.filter((d) => d.count > 0).length;
   const totalProblems = data.reduce((sum, d) => sum + d.count, 0);
 
-  // Group into weeks
   const weeks: DayCell[][] = [];
   let currentWeek: DayCell[] = [];
 
@@ -47,7 +45,6 @@ export function ContributionGraph() {
     }
   });
 
-  // Group weeks into month blocks
   const monthBlocks = useMemo(() => {
     const blocks: { label: string; weeks: DayCell[][] }[] = [];
     let currentMonth = -1;
@@ -92,52 +89,38 @@ export function ContributionGraph() {
       </div>
 
       <div className="overflow-x-auto">
-        <div className="min-w-[780px]">
-          <div className="flex">
-            {/* Day labels */}
-            <div className="flex flex-col gap-[3px] mr-2 shrink-0 pt-[18px]" style={{ width: 24 }}>
-              {DAY_LABELS.map((label, i) => (
-                <div key={i} className="h-[13px] flex items-center">
-                  <span className="text-[9px] text-muted-foreground font-mono">{label}</span>
+        <div className="flex gap-2.5 min-w-[820px]">
+          {monthBlocks.map((block) => {
+            return (
+              <div
+                key={`${block.label}-${globalWeekIdx}`}
+                className="flex flex-col rounded-xl bg-muted/40 border border-border/30 p-2.5"
+              >
+                <span className="text-[11px] text-foreground font-heading font-bold mb-2 pl-0.5 tracking-wide">
+                  {block.label}
+                </span>
+                <div className="flex gap-[3px]">
+                  {block.weeks.map((week, wi) => {
+                    const weekKey = globalWeekIdx++;
+                    return (
+                      <div key={weekKey} className="flex flex-col gap-[3px]">
+                        {week.map((day, di) => (
+                          <div
+                            key={di}
+                            className={`h-[12px] w-[12px] rounded-[3px] contrib-cell transition-all duration-200 ${
+                              day.count < 0 ? "opacity-0" : levelColors[getLevel(day.count)]
+                            } ${day.count > 0 ? "hover:ring-1 hover:ring-primary/40 hover:scale-125 cursor-pointer" : ""}`}
+                            style={{ animationDelay: `${(weekKey * 7 + di) * 2}ms` }}
+                            title={day.date ? `${day.date}: ${day.count} problems` : ""}
+                          />
+                        ))}
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
-
-            {/* Month blocks with gaps */}
-            <div className="flex gap-3">
-              {monthBlocks.map((block) => {
-                const blockWeeks = block.weeks;
-                return (
-                  <div key={`${block.label}-${globalWeekIdx}`} className="flex flex-col">
-                    {/* Month label */}
-                    <span className="text-[10px] text-muted-foreground font-mono mb-1 pl-0.5">
-                      {block.label}
-                    </span>
-                    {/* Weeks grid */}
-                    <div className="flex gap-[3px]">
-                      {blockWeeks.map((week, wi) => {
-                        const weekKey = globalWeekIdx++;
-                        return (
-                          <div key={weekKey} className="flex flex-col gap-[3px]">
-                            {week.map((day, di) => (
-                              <div
-                                key={di}
-                                className={`h-[13px] w-[13px] rounded-[3px] contrib-cell transition-all duration-200 ${
-                                  day.count < 0 ? "opacity-0" : levelColors[getLevel(day.count)]
-                                } ${day.count > 0 ? "hover:ring-1 hover:ring-primary/40 hover:scale-125 cursor-pointer" : ""}`}
-                                style={{ animationDelay: `${(weekKey * 7 + di) * 2}ms` }}
-                                title={day.date ? `${day.date}: ${day.count} problems` : ""}
-                              />
-                            ))}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
