@@ -41,6 +41,7 @@ export default {
         leetcode: "hsl(var(--leetcode))",
         codeforces: "hsl(var(--codeforces))",
         codechef: "hsl(var(--codechef))",
+        "longest-streak": "hsl(var(--longest-streak))",
       },
       borderRadius: {
         lg: "var(--radius)",
