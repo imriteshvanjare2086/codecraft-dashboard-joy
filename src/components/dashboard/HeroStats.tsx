@@ -31,9 +31,9 @@ const statCards = [
     label: "Longest Streak",
     value: `${heroStats.longestStreak} days`,
     icon: Zap,
-    color: "text-codechef",
-    gradient: "from-codechef/20 to-codechef/5",
-    borderColor: "border-codechef/20",
+    color: "text-longest-streak",
+    gradient: "from-longest-streak/20 to-longest-streak/5",
+    borderColor: "border-longest-streak/20",
   },
 ];
 
