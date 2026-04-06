@@ -3,6 +3,7 @@
 export const heroStats = {
   totalProblems: 847,
   streak: 23,
+  longestStreak: 45,
   level: "Expert",
   score: 2450,
 };

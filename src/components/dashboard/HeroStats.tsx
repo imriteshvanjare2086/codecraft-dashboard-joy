@@ -27,6 +27,14 @@ const statCards = [
     gradient: "from-codeforces/20 to-codeforces/5",
     borderColor: "border-codeforces/20",
   },
+  {
+    label: "Longest Streak",
+    value: `${heroStats.longestStreak} days`,
+    icon: Zap,
+    color: "text-codechef",
+    gradient: "from-codechef/20 to-codechef/5",
+    borderColor: "border-codechef/20",
+  },
 ];
 
 const earnedCount = badges.filter((b) => b.earned).length;
