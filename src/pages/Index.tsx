@@ -4,7 +4,7 @@ import { ContributionGraph } from "@/components/dashboard/ContributionGraph";
 import { PlatformCards } from "@/components/dashboard/PlatformCards";
 import { RatingGraph } from "@/components/dashboard/RatingGraph";
 import { Insights } from "@/components/dashboard/Insights";
-import { LeaderboardPreview } from "@/components/dashboard/LeaderboardPreview";
+
 import { GoalsSection } from "@/components/dashboard/GoalsSection";
 
 const Index = () => {
