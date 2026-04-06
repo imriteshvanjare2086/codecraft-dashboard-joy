@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Flame, Trophy, Award, Code2 } from "lucide-react";
+import { Flame, Trophy, Award, Code2, Zap } from "lucide-react";
 import { heroStats, badges } from "@/lib/mockData";
 
 const statCards = [
@@ -27,6 +27,14 @@ const statCards = [
     gradient: "from-codeforces/20 to-codeforces/5",
     borderColor: "border-codeforces/20",
   },
+  {
+    label: "Longest Streak",
+    value: `${heroStats.longestStreak} days`,
+    icon: Zap,
+    color: "text-codechef",
+    gradient: "from-codechef/20 to-codechef/5",
+    borderColor: "border-codechef/20",
+  },
 ];
 
 const earnedCount = badges.filter((b) => b.earned).length;
@@ -34,7 +42,7 @@ const earnedCount = badges.filter((b) => b.earned).length;
 export function HeroStats() {
   return (
     <div className="space-y-3 md:space-y-4">
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         {statCards.map((card, i) => (
           <motion.div
             key={card.label}
