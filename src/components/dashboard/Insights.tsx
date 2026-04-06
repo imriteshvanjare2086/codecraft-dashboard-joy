@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { AlertTriangle, Lightbulb } from "lucide-react";
+import { AlertTriangle, Lightbulb, ArrowRight } from "lucide-react";
 import { weakTopics, recommendations } from "@/lib/mockData";
 
 export function Insights() {
@@ -10,26 +10,37 @@ export function Insights() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
-        className="rounded-xl border border-border bg-card p-4 md:p-5"
+        className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-5"
       >
-        <div className="flex items-center gap-2 mb-4">
-          <AlertTriangle className="h-4 w-4 text-leetcode" />
+        <div className="flex items-center gap-2.5 mb-5">
+          <div className="p-1.5 rounded-lg bg-destructive/10">
+            <AlertTriangle className="h-4 w-4 text-destructive" />
+          </div>
           <h3 className="text-sm font-heading font-semibold text-foreground">Weak Topics</h3>
         </div>
-        <div className="space-y-3">
-          {weakTopics.map((topic) => (
-            <div key={topic.name}>
-              <div className="flex justify-between text-xs mb-1">
+        <div className="space-y-4">
+          {weakTopics.map((topic, i) => (
+            <motion.div
+              key={topic.name}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8 + i * 0.05 }}
+            >
+              <div className="flex justify-between text-xs mb-1.5">
                 <span className="text-foreground font-mono">{topic.name}</span>
-                <span className="text-muted-foreground font-mono">{topic.accuracy}%</span>
+                <span className={`font-mono font-semibold ${topic.accuracy < 35 ? "text-destructive" : "text-leetcode"}`}>
+                  {topic.accuracy}%
+                </span>
               </div>
-              <div className="h-1.5 rounded-full bg-muted">
-                <div
-                  className="h-full rounded-full bg-destructive/70"
-                  style={{ width: `${topic.accuracy}%` }}
+              <div className="h-2 rounded-full bg-muted/80 overflow-hidden">
+                <motion.div
+                  className={`h-full rounded-full ${topic.accuracy < 35 ? "bg-destructive/70" : "bg-leetcode/70"}`}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${topic.accuracy}%` }}
+                  transition={{ delay: 0.9 + i * 0.1, duration: 0.6, ease: "easeOut" }}
                 />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.div>
@@ -39,21 +50,26 @@ export function Insights() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.75 }}
-        className="rounded-xl border border-border bg-card p-4 md:p-5"
+        className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-5"
       >
-        <div className="flex items-center gap-2 mb-4">
-          <Lightbulb className="h-4 w-4 text-primary" />
+        <div className="flex items-center gap-2.5 mb-5">
+          <div className="p-1.5 rounded-lg bg-primary/10">
+            <Lightbulb className="h-4 w-4 text-primary" />
+          </div>
           <h3 className="text-sm font-heading font-semibold text-foreground">Recommendations</h3>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {recommendations.map((rec, i) => (
-            <div
+            <motion.div
               key={i}
-              className="flex items-start gap-2 rounded-lg bg-muted/50 p-3 text-xs text-secondary-foreground font-mono"
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.85 + i * 0.05 }}
+              className="group flex items-center gap-3 rounded-xl bg-muted/40 hover:bg-muted/60 border border-border/30 p-3.5 text-xs text-secondary-foreground font-mono transition-all duration-200 cursor-pointer"
             >
-              <span className="text-primary font-bold mt-px">→</span>
-              <span>{rec}</span>
-            </div>
+              <ArrowRight className="h-3.5 w-3.5 text-primary shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
+              <span className="flex-1">{rec}</span>
+            </motion.div>
           ))}
         </div>
       </motion.div>
