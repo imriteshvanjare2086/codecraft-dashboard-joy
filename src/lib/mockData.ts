@@ -94,3 +94,12 @@ export const dailyGoal = {
   completed: 3,
   label: "Problems Today",
 };
+
+export const badges = [
+  { name: "7-Day Streak", icon: "🔥", earned: true, description: "Solve problems 7 days in a row" },
+  { name: "Century Club", icon: "💯", earned: true, description: "Solve 100+ problems" },
+  { name: "Hard Hitter", icon: "💎", earned: true, description: "Solve 25 hard problems" },
+  { name: "Contest King", icon: "👑", earned: false, description: "Win a contest round" },
+  { name: "30-Day Streak", icon: "⚡", earned: false, description: "Solve problems 30 days in a row" },
+  { name: "500 Club", icon: "🏆", earned: false, description: "Solve 500+ problems" },
+];

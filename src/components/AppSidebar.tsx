@@ -18,6 +18,7 @@ const navItems = [
   { title: "Problems", url: "/problems", icon: Code2 },
   { title: "Leaderboard", url: "/leaderboard", icon: Trophy },
   { title: "Notes", url: "/notes", icon: StickyNote },
+  { title: "Courses", url: "/courses", icon: GraduationCap },
   { title: "Goals", url: "/goals", icon: Target },
   { title: "Profile", url: "/profile", icon: User },
 ];
