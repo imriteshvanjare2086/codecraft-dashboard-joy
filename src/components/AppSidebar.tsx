@@ -1,4 +1,4 @@
-import { LayoutDashboard, Code2, Trophy, StickyNote, Target, User, Flame } from "lucide-react";
+import { LayoutDashboard, Code2, Trophy, StickyNote, Target, User, Flame, GraduationCap } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
