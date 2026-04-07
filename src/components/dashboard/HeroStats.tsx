@@ -55,7 +55,7 @@ export function HeroStats() {
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
             <div className="relative">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
+                <span className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest font-bold">
                   {card.label}
                 </span>
                 <div className={`p-1.5 rounded-lg bg-background/40 ${card.color} transition-transform duration-300 group-hover:scale-110`}>
