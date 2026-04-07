@@ -1,4 +1,4 @@
-import { LayoutDashboard, Code2, Trophy, StickyNote, Target, User, Flame, GraduationCap } from "lucide-react";
+import { LayoutDashboard, Code2, Trophy, StickyNote, Target, User, Flame, GraduationCap, Route } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
@@ -15,6 +15,7 @@ import {
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Learning Path", url: "/learning-path", icon: Route },
   { title: "Problems", url: "/problems", icon: Code2 },
   { title: "Leaderboard", url: "/leaderboard", icon: Trophy },
   { title: "Notes", url: "/notes", icon: StickyNote },
