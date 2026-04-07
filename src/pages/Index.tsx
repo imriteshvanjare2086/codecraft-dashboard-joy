@@ -3,8 +3,7 @@ import { HeroStats } from "@/components/dashboard/HeroStats";
 import { ContributionGraph } from "@/components/dashboard/ContributionGraph";
 import { PlatformCards } from "@/components/dashboard/PlatformCards";
 import { RatingGraph } from "@/components/dashboard/RatingGraph";
-import { Insights } from "@/components/dashboard/Insights";
-
+import { SmartRecommendations } from "@/components/dashboard/SmartRecommendations";
 import { GoalsSection } from "@/components/dashboard/GoalsSection";
 
 const Index = () => {
@@ -24,8 +23,7 @@ const Index = () => {
           </div>
           <GoalsSection />
         </div>
-        <Insights />
-        
+        <SmartRecommendations />
       </div>
     </DashboardLayout>
   );

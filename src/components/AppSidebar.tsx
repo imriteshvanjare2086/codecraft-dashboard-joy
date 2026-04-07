@@ -15,6 +15,7 @@ import {
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Learning Path", url: "/learning-path", icon: Route },
   { title: "Problems", url: "/problems", icon: Code2 },
   { title: "Leaderboard", url: "/leaderboard", icon: Trophy },
   { title: "Notes", url: "/notes", icon: StickyNote },
