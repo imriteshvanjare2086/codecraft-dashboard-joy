@@ -93,7 +93,7 @@ const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
     active?: boolean;
-    payload?: Array<Record<string, unknown>>;
+    payload?: Array<any>;
     label?: string;
     hideLabel?: boolean;
     hideIndicator?: boolean;
