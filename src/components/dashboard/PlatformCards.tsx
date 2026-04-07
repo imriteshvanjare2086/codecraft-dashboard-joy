@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { leetcodeStats, codeforcesStats, codechefStats } from "@/lib/mockData";
+import { useDashboard } from "@/hooks/useDashboard";
 import { Star, TrendingUp, Award, Hash } from "lucide-react";
 
 function DifficultyBar({ label, value, total, color, delay }: { label: string; value: number; total: number; color: string; delay: number }) {
@@ -30,6 +30,11 @@ function StatPill({ label, value }: { label: string; value: string | number }) {
 }
 
 export function PlatformCards() {
+  const { data } = useDashboard();
+  const leetcodeStats = data?.leetcodeStats || { totalSolved: 0, easy: 0, medium: 0, hard: 0, ranking: 0, acceptanceRate: 0 };
+  const codeforcesStats = data?.codeforcesStats || { rating: 0, maxRating: 0, rank: "Unrated", solved: 0, contests: 0 };
+  const codechefStats = data?.codechefStats || { stars: 0, rating: 0, solved: 0, contests: 0 };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
       {/* LeetCode */}
@@ -48,7 +53,9 @@ export function PlatformCards() {
             </div>
             <div>
               <h3 className="text-sm font-heading font-semibold text-foreground">LeetCode</h3>
-              <span className="text-[10px] font-mono text-muted-foreground">Rank #{leetcodeStats.ranking.toLocaleString()}</span>
+              <span className="text-[10px] font-mono text-muted-foreground">
+                {leetcodeStats.ranking ? `Rank #${leetcodeStats.ranking.toLocaleString()}` : "Not connected"}
+              </span>
             </div>
             <span className="ml-auto text-[10px] font-mono text-leetcode/70 bg-leetcode/10 px-2 py-0.5 rounded-full">
               {leetcodeStats.acceptanceRate}% acc

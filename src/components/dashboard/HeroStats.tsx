@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { Flame, Trophy, Award, Code2, Zap } from "lucide-react";
-import { heroStats, badges } from "@/lib/mockData";
+import { useDashboard } from "@/hooks/useDashboard";
 
 const statCards = [
   {
     label: "Total Problems",
-    value: heroStats.totalProblems,
+    value: 0,
     icon: Code2,
     color: "text-primary",
     gradient: "from-primary/20 to-primary/5",
@@ -13,7 +13,7 @@ const statCards = [
   },
   {
     label: "Current Streak",
-    value: `${heroStats.streak} days`,
+    value: "0 days",
     icon: Flame,
     color: "text-leetcode",
     gradient: "from-leetcode/20 to-leetcode/5",
@@ -21,7 +21,7 @@ const statCards = [
   },
   {
     label: "Level",
-    value: heroStats.level,
+    value: "Beginner",
     icon: Trophy,
     color: "text-codeforces",
     gradient: "from-codeforces/20 to-codeforces/5",
@@ -29,7 +29,7 @@ const statCards = [
   },
   {
     label: "Longest Streak",
-    value: `${heroStats.longestStreak} days`,
+    value: "0 days",
     icon: Zap,
     color: "text-longest-streak",
     gradient: "from-longest-streak/20 to-longest-streak/5",
@@ -37,13 +37,25 @@ const statCards = [
   },
 ];
 
-const earnedCount = badges.filter((b) => b.earned).length;
-
 export function HeroStats() {
+  const { data } = useDashboard();
+  const heroStats = data?.heroStats;
+  const badges = data?.badges || [];
+  const earnedCount = badges.filter((b: any) => b.earned).length;
+
+  const cards = statCards.map((c) => {
+    if (!heroStats) return c;
+    if (c.label === "Total Problems") return { ...c, value: heroStats.totalProblems };
+    if (c.label === "Current Streak") return { ...c, value: `${heroStats.streak} days` };
+    if (c.label === "Level") return { ...c, value: heroStats.level };
+    if (c.label === "Longest Streak") return { ...c, value: `${heroStats.longestStreak} days` };
+    return c;
+  });
+
   return (
     <div className="space-y-3 md:space-y-4">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-        {statCards.map((card, i) => (
+        {cards.map((card, i) => (
           <motion.div
             key={card.label}
             initial={{ opacity: 0, y: 24, scale: 0.95 }}
@@ -91,7 +103,7 @@ export function HeroStats() {
           </div>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5">
-          {badges.map((badge, i) => (
+          {badges.map((badge: any, i: number) => (
             <motion.div
               key={badge.name}
               initial={{ opacity: 0, scale: 0.8 }}

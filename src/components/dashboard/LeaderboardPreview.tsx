@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Trophy, Medal, Crown } from "lucide-react";
-import { leaderboard } from "@/lib/mockData";
+import { useDashboard } from "@/hooks/useDashboard";
 
 const rankIcons: Record<number, React.ReactNode> = {
   1: <Crown className="h-3.5 w-3.5 text-leetcode" />,
@@ -9,6 +9,9 @@ const rankIcons: Record<number, React.ReactNode> = {
 };
 
 export function LeaderboardPreview() {
+  const { data } = useDashboard();
+  const leaderboard = data?.leaderboard || [];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

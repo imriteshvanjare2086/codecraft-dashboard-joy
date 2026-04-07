@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { mockProblems, problemTopics, problemSheets, type Platform, type ProblemDifficulty, type ProblemStatus } from "@/lib/problemsData";
+import { problemTopics, problemSheets, type Platform, type ProblemDifficulty, type ProblemStatus } from "@/lib/problemsData";
+import { useProblems, useSetProblemStatus } from "@/hooks/useProblems";
 import { Search, Filter, ExternalLink, CheckCircle2, AlertCircle, Circle } from "lucide-react";
 
 const platformColors: Record<Platform, string> = {
@@ -23,6 +24,9 @@ const statusIcons: Record<ProblemStatus, React.ReactNode> = {
 };
 
 export default function Problems() {
+  const { data: problems = [] } = useProblems();
+  const setStatus = useSetProblemStatus();
+
   const [search, setSearch] = useState("");
   const [platformFilter, setPlatformFilter] = useState<Platform | "all">("all");
   const [diffFilter, setDiffFilter] = useState<ProblemDifficulty | "all">("all");
@@ -31,7 +35,7 @@ export default function Problems() {
   const [statusFilter, setStatusFilter] = useState<ProblemStatus | "all">("all");
 
   const filtered = useMemo(() => {
-    return mockProblems.filter((p) => {
+    return problems.filter((p: any) => {
       if (search && !p.title.toLowerCase().includes(search.toLowerCase())) return false;
       if (platformFilter !== "all" && p.platform !== platformFilter) return false;
       if (diffFilter !== "all" && p.difficulty !== diffFilter) return false;
@@ -40,13 +44,15 @@ export default function Problems() {
       if (statusFilter !== "all" && p.status !== statusFilter) return false;
       return true;
     });
-  }, [search, platformFilter, diffFilter, topicFilter, sheetFilter, statusFilter]);
+  }, [problems, search, platformFilter, diffFilter, topicFilter, sheetFilter, statusFilter]);
 
   const stats = {
-    total: mockProblems.length,
-    solved: mockProblems.filter((p) => p.status === "solved").length,
-    attempted: mockProblems.filter((p) => p.status === "attempted").length,
+    total: problems.length,
+    solved: problems.filter((p: any) => p.status === "solved").length,
+    attempted: problems.filter((p: any) => p.status === "attempted").length,
   };
+
+  const cycleStatus = (s: ProblemStatus) => (s === "unsolved" ? "attempted" : s === "attempted" ? "solved" : "unsolved");
 
   return (
     <DashboardLayout>
@@ -154,7 +160,14 @@ export default function Problems() {
                 transition={{ delay: i * 0.02 }}
                 className="grid grid-cols-[32px_1fr_90px_80px_80px_80px_32px] gap-2 px-4 py-3 items-center hover:bg-muted/10 transition-colors"
               >
-                <div>{statusIcons[problem.status]}</div>
+                <button
+                  className="w-fit"
+                  title="Click to change status"
+                  onClick={() => setStatus.mutate({ id: problem.id, status: cycleStatus(problem.status) })}
+                  disabled={setStatus.isPending}
+                >
+                  {statusIcons[problem.status]}
+                </button>
                 <span className="text-sm font-mono text-foreground truncate">{problem.title}</span>
                 <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border w-fit ${platformColors[problem.platform]}`}>
                   {problem.platform === "leetcode" ? "LC" : problem.platform === "codeforces" ? "CF" : "CC"}
@@ -164,7 +177,9 @@ export default function Problems() {
                 </span>
                 <span className="text-[10px] font-mono text-muted-foreground truncate">{problem.topic}</span>
                 <span className="text-[10px] font-mono text-muted-foreground truncate">{problem.sheet}</span>
-                <ExternalLink className="h-3.5 w-3.5 text-muted-foreground/40 hover:text-primary cursor-pointer transition-colors" />
+                <a href={problem.url || "#"} target="_blank" rel="noreferrer">
+                  <ExternalLink className="h-3.5 w-3.5 text-muted-foreground/40 hover:text-primary cursor-pointer transition-colors" />
+                </a>
               </motion.div>
             ))}
             {filtered.length === 0 && (

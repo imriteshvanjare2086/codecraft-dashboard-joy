@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Target, CheckCircle2 } from "lucide-react";
-import { dailyGoal } from "@/lib/mockData";
+import { useDashboard } from "@/hooks/useDashboard";
 
 export function GoalsSection() {
+  const { data } = useDashboard();
+  const dailyGoal = data?.dailyGoal || { target: 3, completed: 0, label: "Problems Today" };
   const pct = (dailyGoal.completed / dailyGoal.target) * 100;
 
   return (

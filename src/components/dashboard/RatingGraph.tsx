@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Area, AreaChart } from "recharts";
-import { ratingHistory } from "@/lib/mockData";
+import { useDashboard } from "@/hooks/useDashboard";
 import { TrendingUp } from "lucide-react";
 
 type Platform = "codeforces" | "leetcode";
@@ -13,11 +13,13 @@ const platformConfig: Record<Platform, { label: string; color: string; cssColor:
 
 export function RatingGraph() {
   const [platform, setPlatform] = useState<Platform>("codeforces");
-  const data = ratingHistory[platform];
+  const { data: dash } = useDashboard();
+  const ratingHistory = dash?.ratingHistory;
+  const data = (ratingHistory?.[platform] || []) as any[];
   const config = platformConfig[platform];
-  const latest = data[data.length - 1];
-  const prev = data[data.length - 2];
-  const delta = latest.rating - prev.rating;
+  const latest = data[data.length - 1] || { rating: 0 };
+  const prev = data[data.length - 2] || latest;
+  const delta = (latest?.rating || 0) - (prev?.rating || 0);
 
   return (
     <motion.div

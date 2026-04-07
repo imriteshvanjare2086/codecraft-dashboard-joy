@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Activity } from "lucide-react";
-import { generateContributionData } from "@/lib/mockData";
+import { useDashboard } from "@/hooks/useDashboard";
 
 function getLevel(count: number): number {
   if (count === 0) return 0;
@@ -24,7 +24,8 @@ const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "S
 type DayCell = { date: string; count: number };
 
 export function ContributionGraph() {
-  const data = useMemo(() => generateContributionData(), []);
+  const { data: dash } = useDashboard();
+  const data = useMemo(() => dash?.contributionData || [], [dash]);
   const totalActive = data.filter((d) => d.count > 0).length;
   const totalProblems = data.reduce((sum, d) => sum + d.count, 0);
 

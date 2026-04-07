@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Flame, ChevronRight, ChevronLeft, Check, Target, Link2, Zap } from "lucide-react";
+import { api } from "@/lib/apiClient";
 
 const steps = ["Connect Platforms", "Select Goal", "Set Daily Target"];
 
@@ -39,8 +40,12 @@ export default function Onboarding() {
 
   const canProceed = step === 0 ? selectedPlatforms.length > 0 : step === 1 ? !!selectedGoal : true;
 
-  const handleFinish = () => {
-    // In production: save to backend
+  const handleFinish = async () => {
+    await api.put("/me/profile", {
+      platforms: selectedPlatforms.map((id) => ({ id, username: usernames[id] || "" })),
+      goal: selectedGoal,
+      dailyTarget,
+    });
     navigate("/");
   };
 

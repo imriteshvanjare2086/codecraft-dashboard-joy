@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Lightbulb, Zap, TrendingDown, Flame, ArrowRight, Brain } from "lucide-react";
-import { weakTopics, heroStats } from "@/lib/mockData";
+import { useDashboard } from "@/hooks/useDashboard";
 
 interface SmartSuggestion {
   type: "weak-topic" | "streak" | "performance" | "daily";
@@ -11,7 +11,7 @@ interface SmartSuggestion {
   urgency: "high" | "medium" | "low";
 }
 
-function generateSmartSuggestions(): SmartSuggestion[] {
+function generateSmartSuggestions(weakTopics: any[], heroStats: any): SmartSuggestion[] {
   const suggestions: SmartSuggestion[] = [];
 
   // Based on weak topics
@@ -85,7 +85,8 @@ const urgencyDot = {
 };
 
 export function SmartRecommendations() {
-  const suggestions = generateSmartSuggestions();
+  const { data } = useDashboard();
+  const suggestions = generateSmartSuggestions(data?.weakTopics || [], data?.heroStats || { streak: 0, longestStreak: 0 });
 
   return (
     <motion.div
