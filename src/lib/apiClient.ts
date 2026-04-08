@@ -23,11 +23,3 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export async function ensureAnonymousAuth() {
-  const token = getToken();
-  if (token) return token;
-  const res = await api.post("/auth/anonymous");
-  setToken(res.data.token);
-  return res.data.token as string;
-}
-

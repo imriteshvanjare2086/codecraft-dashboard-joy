@@ -1,27 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/apiClient";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProblems, type ProblemFilters } from "@/services/problems";
 
-export function useProblems() {
+export function useProblems(filters: ProblemFilters) {
   return useQuery({
-    queryKey: ["problems"],
-    queryFn: async () => {
-      const res = await api.get("/problems");
-      return res.data.problems as any[];
-    },
-  });
-}
-
-export function useSetProblemStatus() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: "solved" | "attempted" | "unsolved" }) => {
-      const res = await api.patch(`/problems/${id}/status`, { status });
-      return res.data;
-    },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["problems"] });
-      qc.invalidateQueries({ queryKey: ["dashboard"] });
-    },
+    queryKey: ["problems", filters],
+    queryFn: async () => fetchProblems(filters),
   });
 }
 

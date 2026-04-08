@@ -4,7 +4,27 @@ import { useDashboard } from "@/hooks/useDashboard";
 
 export function GoalsSection() {
   const { data } = useDashboard();
-  const dailyGoal = data?.dailyGoal || { target: 3, completed: 0, label: "Problems Today" };
+  const dailyGoal = data?.dailyGoal;
+  if (!dailyGoal) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.85 }}
+        className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-5 h-full flex flex-col"
+      >
+        <div className="flex items-center gap-2.5 mb-5">
+          <div className="p-1.5 rounded-lg bg-primary/10">
+            <Target className="h-4 w-4 text-primary" />
+          </div>
+          <h3 className="text-sm font-heading font-semibold text-foreground">Daily Goal</h3>
+        </div>
+        <div className="flex-1 flex items-center justify-center rounded-xl border border-dashed border-border/50 bg-muted/10 p-6 text-center font-mono text-sm text-muted-foreground">
+          No daily goal configured.
+        </div>
+      </motion.div>
+    );
+  }
   const pct = (dailyGoal.completed / dailyGoal.target) * 100;
 
   return (

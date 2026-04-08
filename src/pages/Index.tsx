@@ -1,4 +1,5 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { PageHeader } from "@/components/PageHeader";
 import { HeroStats } from "@/components/dashboard/HeroStats";
 import { ContributionGraph } from "@/components/dashboard/ContributionGraph";
 import { PlatformCards } from "@/components/dashboard/PlatformCards";
@@ -10,10 +11,10 @@ const Index = () => {
   return (
     <DashboardLayout>
       <div className="max-w-6xl mx-auto space-y-5">
-        <div>
-          <h1 className="text-2xl font-bold font-heading text-foreground">Dashboard</h1>
-          <p className="text-sm text-muted-foreground font-mono mt-1">Track your competitive programming journey</p>
-        </div>
+        <PageHeader
+          title="Dashboard"
+          description="Track your competitive programming journey"
+        />
         <HeroStats />
         <ContributionGraph />
         <PlatformCards />

@@ -41,7 +41,7 @@ export default function Onboarding() {
   const canProceed = step === 0 ? selectedPlatforms.length > 0 : step === 1 ? !!selectedGoal : true;
 
   const handleFinish = async () => {
-    await api.put("/me/profile", {
+    await api.patch("/user/profile", {
       platforms: selectedPlatforms.map((id) => ({ id, username: usernames[id] || "" })),
       goal: selectedGoal,
       dailyTarget,
