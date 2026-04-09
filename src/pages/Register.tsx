@@ -20,6 +20,9 @@ export default function Register() {
       const data = (await register({ username, email, password })) as any;
       if (data && data.user) {
         localStorage.setItem("user", JSON.stringify(data.user));
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
       }
       navigate("/");
     } catch (err: any) {

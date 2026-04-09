@@ -13,3 +13,13 @@ export async function fetchFriends() {
   return res.data.friends as FriendUser[];
 }
 
+export async function searchUsers(query: string) {
+  const res = await api.get(`/users/search?q=${encodeURIComponent(query)}`);
+  return res.data as FriendUser[];
+}
+
+export async function addFriend(friendId: string) {
+  const res = await api.post("/friends/add", { friendId });
+  return res.data;
+}
+

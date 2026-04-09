@@ -11,4 +11,8 @@ export async function register(payload: { username: string; email: string; passw
   setToken(res.data.token);
   return res.data as { token: string };
 }
-
+export async function googleLogin(credential: string) {
+  const res = await api.post("/auth/google", { credential });
+  setToken(res.data.token);
+  return res.data as { token: string; user: any };
+}

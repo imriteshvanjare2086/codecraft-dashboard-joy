@@ -11,6 +11,16 @@ export type UserProfile = {
 
 export async function fetchProfile() {
   const res = await api.get("/user/profile");
-  return res.data.user as UserProfile;
+  return res.data as UserProfile;
+}
+
+export async function getLeaderboard() {
+  const res = await api.get("/leaderboard");
+  return res.data as UserProfile[];
+}
+
+export async function fetchUserProfile(userId: string) {
+  const res = await api.get(`/users/${userId}`);
+  return res.data as UserProfile;
 }
 

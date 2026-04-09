@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Flame, Trophy, Award, Code2, Zap } from "lucide-react";
-import { useDashboard } from "@/hooks/useDashboard";
+import { useState } from "react";
 
 const statCards = [
   {
@@ -37,20 +37,23 @@ const statCards = [
   },
 ];
 
-export function HeroStats() {
-  const { data } = useDashboard();
-  const heroStats = data?.heroStats;
-  const badges = data?.badges || [];
-  const earnedCount = badges.filter((b: any) => b.earned).length;
+export function HeroStats({ stats: externalStats }: { stats?: any }) {
+  const stats = externalStats || {
+    totalProblems: 0,
+    currentStreak: 0,
+    longestStreak: 0,
+    level: "Beginner",
+  };
 
   const cards = statCards.map((c) => {
-    if (!heroStats) return c;
-    if (c.label === "Total Problems") return { ...c, value: heroStats.totalProblems };
-    if (c.label === "Current Streak") return { ...c, value: `${heroStats.streak} days` };
-    if (c.label === "Level") return { ...c, value: heroStats.level };
-    if (c.label === "Longest Streak") return { ...c, value: `${heroStats.longestStreak} days` };
+    if (c.label === "Total Problems") return { ...c, value: stats.totalProblems };
+    if (c.label === "Current Streak") return { ...c, value: `${stats.currentStreak} days` };
+    if (c.label === "Level") return { ...c, value: stats.level };
+    if (c.label === "Longest Streak") return { ...c, value: `${stats.longestStreak} days` };
     return c;
   });
+
+  const earnedCount = 0;
 
   return (
     <div className="space-y-3 md:space-y-4">
@@ -82,49 +85,35 @@ export function HeroStats() {
         ))}
       </div>
 
-      {/* Badges Section */}
+      {/* Badges Section - Empty State */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-5"
+        className="rounded-3xl border border-border/40 bg-card/60 backdrop-blur-2xl p-6 shadow-xl relative overflow-hidden group"
       >
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-leetcode/10">
-              <Award className="h-4 w-4 text-leetcode" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        <div className="flex items-center justify-between mb-6 relative">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-primary/10 border border-primary/20">
+              <Award className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 className="text-sm font-heading font-semibold text-foreground">Badges</h3>
-              <p className="text-[10px] text-muted-foreground font-mono mt-0.5">
-                {earnedCount} of {badges.length} earned
+              <h3 className="text-base font-heading font-bold text-foreground">Your Achievements</h3>
+              <p className="text-[11px] text-muted-foreground font-mono mt-0.5">
+                0 badges unlocked
               </p>
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5">
-          {badges.map((badge: any, i: number) => (
-            <motion.div
-              key={badge.name}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.35 + i * 0.05 }}
-              whileHover={{ scale: 1.08, transition: { duration: 0.15 } }}
-              className={`group relative flex flex-col items-center gap-1.5 rounded-xl p-3 text-center cursor-default transition-all duration-200 ${
-                badge.earned
-                  ? "bg-primary/5 border border-primary/20"
-                  : "bg-muted/30 border border-border/30 opacity-50 grayscale"
-              }`}
-              title={badge.description}
-            >
-              <span className="text-2xl">{badge.icon}</span>
-              <span className={`text-[9px] font-mono leading-tight ${
-                badge.earned ? "text-foreground" : "text-muted-foreground"
-              }`}>
-                {badge.name}
-              </span>
-            </motion.div>
-          ))}
+
+        <div className="flex flex-col items-center justify-center py-10 rounded-2xl border-2 border-dashed border-border/40 bg-muted/5 relative">
+          <div className="p-3 rounded-full bg-muted/20 mb-3">
+             <Code2 className="h-6 w-6 text-muted-foreground/40" />
+          </div>
+          <p className="text-sm font-heading font-semibold text-foreground/80">No badges earned yet</p>
+          <p className="text-[10px] text-muted-foreground font-mono mt-1">Complete challenges to unlock your first badge!</p>
         </div>
       </motion.div>
     </div>

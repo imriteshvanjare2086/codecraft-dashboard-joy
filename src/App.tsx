@@ -20,6 +20,7 @@ import Leaderboard from "./pages/Leaderboard.tsx";
 import Notes from "./pages/Notes.tsx";
 import Courses from "./pages/Courses.tsx";
 import Goals from "./pages/Goals.tsx";
+import CodeT from "./pages/CodeT.tsx";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,8 @@ const App = () => {
               <Route path="/register" element={<Register />} />
 
               <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+              <Route path="/dashboard/:userId" element={<ProtectedRoute><Index /></ProtectedRoute>} />
               <Route path="/learning-path" element={<ProtectedRoute><LearningPath /></ProtectedRoute>} />
               <Route path="/problems" element={<ProtectedRoute><Problems /></ProtectedRoute>} />
               <Route path="/weekly-challenges" element={<ProtectedRoute><WeeklyChallenges /></ProtectedRoute>} />
@@ -57,8 +60,10 @@ const App = () => {
               <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
               <Route path="/goals" element={<ProtectedRoute><Goals /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+              <Route path="/profile/:userId" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path="/focus" element={<ProtectedRoute><FocusMode /></ProtectedRoute>} />
               <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+              <Route path="/codet" element={<ProtectedRoute><CodeT /></ProtectedRoute>} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

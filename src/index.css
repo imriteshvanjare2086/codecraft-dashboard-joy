@@ -6,6 +6,48 @@
 
 @layer base {
   :root {
+    --background: 0 0% 100%;
+    --foreground: 228 14% 7%;
+    --card: 0 0% 96%;
+    --card-foreground: 228 14% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 14% 7%;
+    --primary: 142 60% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 228 14% 15%;
+    --muted: 0 0% 92%;
+    --muted-foreground: 228 12% 40%;
+    --accent: 142 60% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 142 60% 50%;
+    --radius: 0.875rem;
+
+    --leetcode: 36 100% 50%;
+    --codeforces: 215 80% 55%;
+    --codechef: 145 55% 45%;
+    --longest-streak: 0 80% 55%;
+
+    --glow-primary: 0 0 30px hsl(142 60% 50% / 0.12), 0 0 60px hsl(142 60% 50% / 0.06);
+    --glow-leetcode: 0 0 30px hsl(36 100% 50% / 0.12), 0 0 60px hsl(36 100% 50% / 0.06);
+    --glow-codeforces: 0 0 30px hsl(215 80% 55% / 0.12), 0 0 60px hsl(215 80% 55% / 0.06);
+    --glow-codechef: 0 0 30px hsl(145 55% 45% / 0.12), 0 0 60px hsl(145 55% 45% / 0.06);
+
+    --contrib-empty: 0 0% 90%;
+    --contrib-l1: 142 60% 40%;
+    --contrib-l2: 142 60% 50%;
+    --contrib-l3: 142 60% 60%;
+    --contrib-l4: 142 60% 70%;
+
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  .dark {
     --background: 228 14% 7%;
     --foreground: 210 20% 92%;
 
@@ -34,39 +76,21 @@
     --input: 228 12% 16%;
     --ring: 142 60% 50%;
 
-    --radius: 0.875rem;
-
-    /* Platform colors */
     --leetcode: 36 100% 50%;
     --codeforces: 215 80% 55%;
     --codechef: 145 55% 45%;
     --longest-streak: 0 80% 55%;
 
-    /* Glow effects */
     --glow-primary: 0 0 30px hsl(142 60% 50% / 0.12), 0 0 60px hsl(142 60% 50% / 0.06);
     --glow-leetcode: 0 0 30px hsl(36 100% 50% / 0.12), 0 0 60px hsl(36 100% 50% / 0.06);
     --glow-codeforces: 0 0 30px hsl(215 80% 55% / 0.12), 0 0 60px hsl(215 80% 55% / 0.06);
     --glow-codechef: 0 0 30px hsl(145 55% 45% / 0.12), 0 0 60px hsl(145 55% 45% / 0.06);
 
-    /* Contribution graph */
     --contrib-empty: 228 12% 12%;
     --contrib-l1: 142 60% 20%;
     --contrib-l2: 142 60% 32%;
     --contrib-l3: 142 60% 44%;
     --contrib-l4: 142 60% 56%;
-
-    /* Sidebar */
-    --sidebar-background: 228 16% 5%;
-    --sidebar-foreground: 210 15% 65%;
-    --sidebar-primary: 142 60% 50%;
-    --sidebar-primary-foreground: 228 14% 7%;
-    --sidebar-accent: 228 14% 11%;
-    --sidebar-accent-foreground: 210 20% 92%;
-    --sidebar-border: 228 12% 13%;
-    --sidebar-ring: 142 60% 50%;
-
-    --font-heading: 'Space Grotesk', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
   }
 }
 

@@ -4,27 +4,38 @@ import { HeroStats } from "@/components/dashboard/HeroStats";
 import { ContributionGraph } from "@/components/dashboard/ContributionGraph";
 import { PlatformCards } from "@/components/dashboard/PlatformCards";
 import { RatingGraph } from "@/components/dashboard/RatingGraph";
-import { SmartRecommendations } from "@/components/dashboard/SmartRecommendations";
-import { GoalsSection } from "@/components/dashboard/GoalsSection";
+
+import { useParams } from "react-router-dom";
+import { useDashboard } from "@/hooks/useDashboard";
 
 const Index = () => {
+  const { userId } = useParams();
+  const { data: dash, isLoading } = useDashboard(userId);
+  const isOwnDashboard = !userId;
+
+  if (isLoading) {
+    return (
+      <DashboardLayout>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      </DashboardLayout>
+    );
+  }
+
   return (
     <DashboardLayout>
       <div className="max-w-6xl mx-auto space-y-5">
         <PageHeader
-          title="Dashboard"
-          description="Track your competitive programming journey"
+          title={isOwnDashboard ? "Dashboard" : `${dash?.profile?.username}'s Dashboard`}
+          description={isOwnDashboard ? "Track your competitive programming journey" : `Viewing ${dash?.profile?.username}'s coding profile and history`}
         />
-        <HeroStats />
-        <ContributionGraph />
-        <PlatformCards />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2">
-            <RatingGraph />
-          </div>
-          <GoalsSection />
+        <HeroStats stats={dash?.heroStats} />
+        <ContributionGraph stats={dash?.heroStats} />
+        <PlatformCards stats={dash?.profile?.platformStats} />
+        <div className="w-full">
+          <RatingGraph userId={userId} />
         </div>
-        <SmartRecommendations />
       </div>
     </DashboardLayout>
   );

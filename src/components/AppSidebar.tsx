@@ -11,6 +11,7 @@ import {
   CalendarRange,
   Focus,
   Users,
+  Bot,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -33,6 +34,7 @@ const primaryNav: NavItem[] = [
   { title: "Learning Path", url: "/learning-path", icon: Route },
   { title: "Problems", url: "/problems", icon: Code2 },
   { title: "Weekly Challenges", url: "/weekly-challenges", icon: CalendarRange },
+  { title: "CodeT Assistant", url: "/codet", icon: Bot },
   { title: "Focus Mode", url: "/focus", icon: Focus },
 ];
 

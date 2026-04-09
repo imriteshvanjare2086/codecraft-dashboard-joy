@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
-import { Headphones, Pause, Play, Quote, Timer } from "lucide-react";
+import { Headphones, Pause, Play, Quote, Timer, X } from "lucide-react";
 
 const DURATIONS = [5, 10, 15] as const;
 
@@ -22,6 +23,7 @@ function formatMmSs(totalSeconds: number) {
 }
 
 export default function FocusMode() {
+  const navigate = useNavigate();
   const [minutes, setMinutes] = useState<(typeof DURATIONS)[number]>(10);
   const [secondsLeft, setSecondsLeft] = useState(minutes * 60);
   const [running, setRunning] = useState(false);
@@ -51,13 +53,19 @@ export default function FocusMode() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
       <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card/60 backdrop-blur-2xl p-6 space-y-6">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex justify-between items-center mb-[-12px]">
+          <h1 className="text-xl font-heading font-semibold text-foreground flex items-center gap-2">
+            <Timer className="h-6 w-6 text-primary" />
+            Focus Mode
+          </h1>
+          <Button variant="destructive" size="default" onClick={() => navigate("/")} className="font-mono text-xs rounded-xl shadow-lg">
+            <X className="mr-1 h-4 w-4" />
+            Exit Mode
+          </Button>
+        </div>
+        <div className="flex items-start justify-between gap-4 mt-2">
           <div>
-            <div className="flex items-center gap-2">
-              <Timer className="h-5 w-5 text-primary" />
-              <h1 className="text-lg font-heading font-semibold text-foreground">Focus Mode</h1>
-            </div>
-            <p className="text-xs font-mono text-muted-foreground mt-1">Meditation timer + motivation. No distractions.</p>
+            <p className="text-xs font-mono text-muted-foreground">Meditation timer + motivation. No distractions.</p>
           </div>
           <Toggle
             pressed={ambientOn}

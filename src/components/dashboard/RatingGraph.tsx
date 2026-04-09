@@ -11,9 +11,9 @@ const platformConfig: Record<Platform, { label: string; color: string; cssColor:
   leetcode: { label: "LeetCode", color: "hsl(36, 100%, 50%)", cssColor: "text-leetcode", gradient: "from-leetcode/20" },
 };
 
-export function RatingGraph() {
+export function RatingGraph({ userId }: { userId?: string }) {
   const [platform, setPlatform] = useState<Platform>("codeforces");
-  const { data: dash } = useDashboard();
+  const { data: dash } = useDashboard(userId);
   const ratingHistory = dash?.ratingHistory;
   const data = (ratingHistory?.[platform] || []) as any[];
   const config = platformConfig[platform];
