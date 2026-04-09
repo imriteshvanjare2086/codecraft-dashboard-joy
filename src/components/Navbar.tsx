@@ -88,7 +88,7 @@ export function Navbar() {
     <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border/40 bg-background/60 backdrop-blur-2xl px-4">
       <div className="flex items-center gap-3">
         <SidebarTrigger className="text-muted-foreground hover:text-foreground transition-colors" />
-        <div className="relative">
+        <div className="relative" id="tour-search">
           <div className="hidden sm:flex items-center gap-2 rounded-xl border border-border/50 bg-muted/30 px-3 py-1.5 text-sm text-muted-foreground focus-within:bg-muted/50 focus-within:ring-2 focus-within:ring-primary/20 transition-all shadow-sm">
             <Search className="h-3.5 w-3.5" />
             <input 
@@ -152,6 +152,7 @@ export function Navbar() {
         </div>
         <div className="relative">
           <div 
+            id="tour-profile"
             onClick={() => { setShowDropdown(!showDropdown); setShowNotifications(false); }}
             className="h-8 w-8 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center text-xs font-bold text-primary font-mono cursor-pointer hover:bg-primary/20 transition-all overflow-hidden"
           >

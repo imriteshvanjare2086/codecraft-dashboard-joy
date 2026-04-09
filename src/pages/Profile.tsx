@@ -4,17 +4,19 @@ import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchProfile, fetchUserProfile } from "@/services/user";
 import { useState, useRef, useEffect } from "react";
-import { Camera, User, Upload, X, Check } from "lucide-react";
+import { Camera, User, Upload, X, Check, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
 import { useParams } from "react-router-dom";
+import { WebsiteTour } from "@/components/WebsiteTour";
 
 export default function Profile() {
   const { userId } = useParams();
   const userStr = localStorage.getItem("user");
   const localUser = userStr ? JSON.parse(userStr) : null;
   const isOwnProfile = !userId || userId === localUser?._id;
+  const [showTour, setShowTour] = useState(false);
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -150,6 +152,14 @@ export default function Profile() {
                       <Upload className="h-3.5 w-3.5" />
                       {profileImage ? "Change Photo" : "Upload Photo"}
                     </button>
+
+                    <button 
+                      onClick={() => setShowTour(true)}
+                      className="mt-3 w-full flex items-center justify-center gap-2 bg-muted/20 hover:bg-muted/30 text-muted-foreground px-4 py-2.5 rounded-xl border border-border/40 text-xs font-bold transition-all"
+                    >
+                      <HelpCircle className="h-3.5 w-3.5" />
+                      Take Website Tour
+                    </button>
                   </>
                 )}
               </CardContent>
@@ -183,6 +193,7 @@ export default function Profile() {
           </div>
         )}
       </div>
+      {showTour && <WebsiteTour onComplete={() => setShowTour(false)} />}
     </DashboardLayout>
   );
 }

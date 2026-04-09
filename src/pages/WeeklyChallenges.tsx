@@ -1,111 +1,175 @@
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { CalendarRange, RotateCcw, Trophy } from "lucide-react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { PageHeader } from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { CalendarRange, CheckCircle2 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { completeChallenge, fetchChallenges } from "@/services/challenges";
+import { ChallengeCard, Challenge } from "@/components/challenges/ChallengeCard";
+import { ChallengeModal } from "@/components/challenges/ChallengeModal";
+import { ProgressBar } from "@/components/challenges/ProgressBar";
+import challengesData from "@/data/challenges.json";
+
+const STORAGE_KEY = "weekly_challenges_completed";
+
+function loadCompleted(): Set<number> {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return new Set();
+    return new Set(JSON.parse(raw) as number[]);
+  } catch {
+    return new Set();
+  }
+}
+
+function saveCompleted(set: Set<number>) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+}
 
 export default function WeeklyChallenges() {
-  const qc = useQueryClient();
-  const { data: challenges, isLoading } = useQuery({
-    queryKey: ["challenges"],
-    queryFn: fetchChallenges,
-  });
-  const complete = useMutation({
-    mutationFn: completeChallenge,
-    onSuccess: async () => {
-      await qc.invalidateQueries({ queryKey: ["challenges"] });
-    },
-  });
+  const challenges = challengesData as Challenge[];
+  const [completed, setCompleted] = useState<Set<number>>(loadCompleted);
+  const [activeModal, setActiveModal] = useState<Challenge | null>(null);
+
+  const toggleComplete = useCallback((id: number) => {
+    setCompleted((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      saveCompleted(next);
+      return next;
+    });
+  }, []);
+
+  const markComplete = useCallback((id: number) => {
+    setCompleted((prev) => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.add(id);
+      saveCompleted(next);
+      return next;
+    });
+  }, []);
+
+  const handleStart = (challenge: Challenge) => {
+    if (challenge.type === "Coding") {
+      window.open(challenge.url, "_blank");
+    } else if (challenge.type === "MCQ") {
+      setActiveModal(challenge);
+    } else if (challenge.type === "Task" && challenge.url && challenge.url !== "#") {
+      window.open(challenge.url, "_blank");
+    }
+  };
+
+  const handleReset = () => {
+    setCompleted(new Set());
+    localStorage.removeItem(STORAGE_KEY);
+  };
+
+  const mcqs = challenges.filter((c) => c.type === "MCQ");
+  const coding = challenges.filter((c) => c.type === "Coding");
+  const tasks = challenges.filter((c) => c.type === "Task");
+
+  const sections = [
+    { label: "📝 MCQ Quizzes", items: mcqs, accent: "from-violet-500/10 to-transparent" },
+    { label: "💻 Coding Challenges", items: coding, accent: "from-sky-500/10 to-transparent" },
+    { label: "📌 Tech Tasks", items: tasks, accent: "from-orange-500/10 to-transparent" },
+  ];
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-6xl space-y-6">
+      <div className="mx-auto max-w-7xl space-y-8">
         <PageHeader
           title="Weekly Challenges"
           description="Stay accountable with clear weekly goals and visible progress."
         />
 
-        <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur-xl">
-          <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/50 bg-muted/30">
-              <CalendarRange className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <CardTitle className="font-heading text-base">This week</CardTitle>
-              <CardDescription className="font-mono text-xs">
-                Progress resets every Monday · UI-only completion for demo
-              </CardDescription>
-            </div>
-          </CardHeader>
-          <CardContent className="grid gap-4 pt-2 sm:grid-cols-1">
-            {isLoading ? (
-              <div className="rounded-2xl border border-border/50 bg-background/40 p-4 font-mono text-sm text-muted-foreground">
-                Loading challenges…
+        {/* Hero progress card */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="glass rounded-3xl p-6"
+        >
+          <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10">
+                <CalendarRange className="h-5 w-5 text-primary" />
               </div>
-            ) : !challenges || challenges.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border/50 bg-background/40 p-6 text-center">
-                <p className="font-mono text-sm text-muted-foreground">No weekly challenges yet.</p>
-                <p className="mt-2 font-mono text-[10px] text-muted-foreground">
-                  Create challenges for your user in MongoDB to see them here.
+              <div>
+                <h2 className="font-heading text-lg font-bold text-foreground">
+                  This Week's Challenges
+                </h2>
+                <p className="font-mono text-xs text-muted-foreground">
+                  Progress resets every Monday
                 </p>
               </div>
-            ) : (
-              challenges.map((goal, i) => {
-              const pct = goal.target ? Math.min(100, Math.round((goal.current / goal.target) * 100)) : 0;
-              const isDone = !!goal.completed;
+            </div>
 
-              return (
+            <div className="flex items-center gap-3">
+              {completed.size === challenges.length && (
                 <motion.div
-                  key={goal._id}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                  className={cn(
-                    "rounded-2xl border border-border/50 bg-background/40 p-4 transition-colors",
-                    isDone && "border-primary/25 bg-primary/5",
-                  )}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="flex items-center gap-2 rounded-xl bg-emerald-500/10 px-3 py-1.5 text-sm font-semibold text-emerald-500"
                 >
-                  <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{goal.label}</p>
-                      <p className="mt-1 font-mono text-xs text-muted-foreground">
-                        {goal.current} / {goal.target}
-                      </p>
-                    </div>
-                    <Button
-                      type="button"
-                      variant={isDone ? "secondary" : "outline"}
-                      size="sm"
-                      className="shrink-0 rounded-xl font-mono text-xs"
-                      onClick={() => complete.mutate(goal._id)}
-                      disabled={complete.isPending || isDone}
-                    >
-                      {isDone ? (
-                        <>
-                          <CheckCircle2 className="mr-2 h-3.5 w-3.5 text-green-400" />
-                          Completed
-                        </>
-                      ) : (
-                        "Mark complete"
-                      )}
-                    </Button>
-                  </div>
-                  <Progress value={isDone ? 100 : pct} className="h-2" />
-                  <p className="mt-2 text-right font-mono text-[10px] text-muted-foreground">
-                    {isDone ? "100%" : `${pct}%`}
-                  </p>
+                  <Trophy className="h-4 w-4" />
+                  Week Complete!
                 </motion.div>
-              );
-            })
-            )}
-          </CardContent>
-        </Card>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleReset}
+                className="gap-2 rounded-xl font-mono text-xs text-muted-foreground hover:text-foreground"
+              >
+                <RotateCcw className="h-3.5 w-3.5" />
+                Reset Week
+              </Button>
+            </div>
+          </div>
+
+          <ProgressBar completed={completed.size} total={challenges.length} />
+        </motion.div>
+
+        {/* Challenge sections */}
+        {sections.map(({ label, items, accent }) => (
+          <motion.div
+            key={label}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-4"
+          >
+            <div className={`flex items-center gap-3 rounded-2xl bg-gradient-to-r ${accent} px-5 py-3`}>
+              <h3 className="font-heading text-base font-bold text-foreground">{label}</h3>
+              <span className="rounded-full bg-muted/30 px-2 py-0.5 font-mono text-xs text-muted-foreground">
+                {items.filter((c) => completed.has(c.id)).length}/{items.length} done
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {items.map((challenge, i) => (
+                <ChallengeCard
+                  key={challenge.id}
+                  challenge={challenge}
+                  isCompleted={completed.has(challenge.id)}
+                  onStart={() => handleStart(challenge)}
+                  onToggleComplete={() => toggleComplete(challenge.id)}
+                  index={i}
+                />
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
+
+      {/* MCQ Modal */}
+      {activeModal && (
+        <ChallengeModal
+          challenge={activeModal}
+          onClose={() => setActiveModal(null)}
+          onComplete={() => markComplete(activeModal.id)}
+          isCompleted={completed.has(activeModal.id)}
+        />
+      )}
     </DashboardLayout>
   );
 }

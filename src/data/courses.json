@@ -1,0 +1,398 @@
+[
+  {
+    "id": 1,
+    "title": "Striver's A2Z DSA Course",
+    "category": "DSA",
+    "platform": "YouTube",
+    "instructor": "Striver (takeUforward)",
+    "thumbnail": "https://img.youtube.com/vi/rZ41y93P2Qo/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=rZ41y93P2Qo&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz"
+  },
+  {
+    "id": 2,
+    "title": "Algorithms & Data Structures",
+    "category": "DSA",
+    "platform": "YouTube",
+    "instructor": "Abdul Bari",
+    "thumbnail": "https://img.youtube.com/vi/0IAPZzGSbME/hqdefault.jpg",
+    "link": "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O"
+  },
+  {
+    "id": 3,
+    "title": "DSA Supreme — C++ Full Course",
+    "category": "DSA",
+    "platform": "YouTube",
+    "instructor": "Love Babbar (CodeHelp)",
+    "thumbnail": "https://img.youtube.com/vi/WQoB2z67hvY/hqdefault.jpg",
+    "link": "https://www.youtube.com/playlist?list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA"
+  },
+  {
+    "id": 4,
+    "title": "Data Structures & Algorithms in Java",
+    "category": "DSA",
+    "platform": "YouTube",
+    "instructor": "Kunal Kushwaha",
+    "thumbnail": "https://img.youtube.com/vi/9At-LPZjSMY/hqdefault.jpg",
+    "link": "https://www.youtube.com/playlist?list=PL9gnSGHSqcnr_DxHsP7AW9ftq0AtAyYqJ"
+  },
+  {
+    "id": 5,
+    "title": "DSA in Java — Full Playlist",
+    "category": "DSA",
+    "platform": "YouTube",
+    "instructor": "Pepcoding",
+    "thumbnail": "https://img.youtube.com/vi/q3SLaZ78gBg/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=q3SLaZ78gBg&list=PL-Jc9J83PIiEuHrjpZ9m94Nag4fwAvtPQ"
+  },
+  {
+    "id": 6,
+    "title": "Data Structures & Algorithms Full Course",
+    "category": "DSA",
+    "platform": "YouTube",
+    "instructor": "freeCodeCamp",
+    "thumbnail": "https://img.youtube.com/vi/8hly31xKli0/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=8hly31xKli0"
+  },
+  {
+    "id": 7,
+    "title": "Full Stack Web Development Bootcamp",
+    "category": "Web Development",
+    "platform": "YouTube",
+    "instructor": "Sheryians Coding School",
+    "thumbnail": "https://img.youtube.com/vi/tVzUXW6siu0/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=tVzUXW6siu0"
+  },
+  {
+    "id": 8,
+    "title": "Complete React Course 2024",
+    "category": "Web Development",
+    "platform": "YouTube",
+    "instructor": "Chai aur Code",
+    "thumbnail": "https://img.youtube.com/vi/FxgM9k1rg0Q/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=FxgM9k1rg0Q&list=PLu71SKxNbfoDqgPchmvIsL4hTnJIrtige"
+  },
+  {
+    "id": 9,
+    "title": "HTML, CSS & JavaScript Full Course",
+    "category": "Web Development",
+    "platform": "YouTube",
+    "instructor": "Apna College",
+    "thumbnail": "https://img.youtube.com/vi/HcOc7P5BMi4/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=HcOc7P5BMi4"
+  },
+  {
+    "id": 10,
+    "title": "Next.js 14 Full Course",
+    "category": "Web Development",
+    "platform": "YouTube",
+    "instructor": "JavaScript Mastery",
+    "thumbnail": "https://img.youtube.com/vi/wm5gMKuwSYk/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=wm5gMKuwSYk"
+  },
+  {
+    "id": 11,
+    "title": "The Complete Web Development Bootcamp",
+    "category": "Web Development",
+    "platform": "Udemy",
+    "instructor": "Dr. Angela Yu",
+    "thumbnail": "https://img.youtube.com/vi/nu_pCVPKzTk/hqdefault.jpg",
+    "link": "https://www.udemy.com/course/the-complete-web-development-bootcamp/"
+  },
+  {
+    "id": 12,
+    "title": "Full Stack Web Dev for Beginners",
+    "category": "Web Development",
+    "platform": "YouTube",
+    "instructor": "freeCodeCamp",
+    "thumbnail": "https://img.youtube.com/vi/zJSY8tbf_ys/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=zJSY8tbf_ys"
+  },
+  {
+    "id": 13,
+    "title": "Traversy Media Crash Courses",
+    "category": "Web Development",
+    "platform": "YouTube",
+    "instructor": "Traversy Media",
+    "thumbnail": "https://img.youtube.com/vi/UB1O30fR-EE/hqdefault.jpg",
+    "link": "https://www.youtube.com/@TraversyMedia/playlists"
+  },
+  {
+    "id": 14,
+    "title": "Object Oriented Programming in Java",
+    "category": "OOPs",
+    "platform": "YouTube",
+    "instructor": "Kunal Kushwaha",
+    "thumbnail": "https://img.youtube.com/vi/BSVKUk58K6U/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=BSVKUk58K6U"
+  },
+  {
+    "id": 15,
+    "title": "OOP in C++ — One Shot",
+    "category": "OOPs",
+    "platform": "YouTube",
+    "instructor": "CodeWithHarry",
+    "thumbnail": "https://img.youtube.com/vi/wN0x9eZLix4/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=wN0x9eZLix4"
+  },
+  {
+    "id": 16,
+    "title": "Java OOP Concepts Full Course",
+    "category": "OOPs",
+    "platform": "YouTube",
+    "instructor": "Telusko",
+    "thumbnail": "https://img.youtube.com/vi/a199KZGMNxk/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=a199KZGMNxk&list=PLsyeobzWxl7peJfNskHkzDGjmPdB5bLMq"
+  },
+  {
+    "id": 17,
+    "title": "OOPs Concepts in One Shot",
+    "category": "OOPs",
+    "platform": "YouTube",
+    "instructor": "Love Babbar (CodeHelp)",
+    "thumbnail": "https://img.youtube.com/vi/m18c4e_om5U/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=m18c4e_om5U"
+  },
+  {
+    "id": 18,
+    "title": "SQL Full Course for Beginners",
+    "category": "SQL",
+    "platform": "YouTube",
+    "instructor": "Apna College",
+    "thumbnail": "https://img.youtube.com/vi/323H_mOOWQ4/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=323H_mOOWQ4"
+  },
+  {
+    "id": 19,
+    "title": "MySQL Database — Full Course",
+    "category": "SQL",
+    "platform": "YouTube",
+    "instructor": "Programming with Mosh",
+    "thumbnail": "https://img.youtube.com/vi/7S_tz1z_5bA/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=7S_tz1z_5bA"
+  },
+  {
+    "id": 20,
+    "title": "SQL for Beginners — Complete Tutorial",
+    "category": "SQL",
+    "platform": "YouTube",
+    "instructor": "freeCodeCamp",
+    "thumbnail": "https://img.youtube.com/vi/HXV3zeQKqGY/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=HXV3zeQKqGY"
+  },
+  {
+    "id": 21,
+    "title": "DBMS — Complete Playlist",
+    "category": "SQL",
+    "platform": "YouTube",
+    "instructor": "Gate Smashers",
+    "thumbnail": "https://img.youtube.com/vi/kBdlM6hNDAE/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=kBdlM6hNDAE&list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y"
+  },
+  {
+    "id": 22,
+    "title": "How to make a Video Game in Unity",
+    "category": "Game Development",
+    "platform": "YouTube",
+    "instructor": "Brackeys",
+    "thumbnail": "https://img.youtube.com/vi/j48LtUkZRjU/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=j48LtUkZRjU&list=PLPV2KyIb3jR53Jce9hPZG5zc4Oz8nC_c5"
+  },
+  {
+    "id": 23,
+    "title": "Unreal Engine 5 Beginner Tutorial",
+    "category": "Game Development",
+    "platform": "YouTube",
+    "instructor": "freeCodeCamp",
+    "thumbnail": "https://img.youtube.com/vi/6pWkH4R11wY/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=gQmiqmxJMfc"
+  },
+  {
+    "id": 24,
+    "title": "Level Design in Games",
+    "category": "Game Development",
+    "platform": "YouTube",
+    "instructor": "Game Maker's Toolkit",
+    "thumbnail": "https://img.youtube.com/vi/iNEe3LlF6Vg/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=iNEe3LlF6Vg"
+  },
+  {
+    "id": 25,
+    "title": "Figma Full Course for Beginners",
+    "category": "UI/UX",
+    "platform": "YouTube",
+    "instructor": "DesignCourse",
+    "thumbnail": "https://img.youtube.com/vi/4W4LvJnNd10/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=4W4LvJnNd10"
+  },
+  {
+    "id": 26,
+    "title": "Google UX Design Professional Certificate",
+    "category": "UI/UX",
+    "platform": "Coursera",
+    "instructor": "Google",
+    "thumbnail": "https://img.youtube.com/vi/0s3w4-KxGqM/hqdefault.jpg",
+    "link": "https://www.coursera.org/professional-certificates/google-ux-design"
+  },
+  {
+    "id": 27,
+    "title": "UI/UX Design Tutorial for Beginners",
+    "category": "UI/UX",
+    "platform": "YouTube",
+    "instructor": "freeCodeCamp",
+    "thumbnail": "https://img.youtube.com/vi/c9Wg6Cb_YlU/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=c9Wg6Cb_YlU"
+  },
+  {
+    "id": 28,
+    "title": "C++ Course for Beginners",
+    "category": "C++",
+    "platform": "YouTube",
+    "instructor": "CodeBeauty",
+    "thumbnail": "https://img.youtube.com/vi/GQp1zzTwrRo/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=GQp1zzTwrRo"
+  },
+  {
+    "id": 29,
+    "title": "C++ Tutorial for Beginners",
+    "category": "C++",
+    "platform": "YouTube",
+    "instructor": "freeCodeCamp",
+    "thumbnail": "https://img.youtube.com/vi/vLnPwxZdW4Y/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=vLnPwxZdW4Y"
+  },
+  {
+    "id": 30,
+    "title": "C Programming Language",
+    "category": "C",
+    "platform": "YouTube",
+    "instructor": "Neso Academy",
+    "thumbnail": "https://img.youtube.com/vi/b00HsZvg-V0/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=b00HsZvg-V0&list=PLBlnK6fEyqRggZZgYpPMUxdY1CYkZtARR"
+  },
+  {
+    "id": 31,
+    "title": "C Programming Tutorial",
+    "category": "C",
+    "platform": "YouTube",
+    "instructor": "freeCodeCamp",
+    "thumbnail": "https://img.youtube.com/vi/KJgsSFOSQv0/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=KJgsSFOSQv0"
+  },
+  {
+    "id": 32,
+    "title": "Python Tutorial for Beginners",
+    "category": "Python",
+    "platform": "YouTube",
+    "instructor": "Programming with Mosh",
+    "thumbnail": "https://img.youtube.com/vi/_uQrJ0TkZlc/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=_uQrJ0TkZlc"
+  },
+  {
+    "id": 33,
+    "title": "Python OOP Tutorials",
+    "category": "Python",
+    "platform": "YouTube",
+    "instructor": "Corey Schafer",
+    "thumbnail": "https://img.youtube.com/vi/ZDa-Z5JzLYM/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=ZDa-Z5JzLYM&list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc"
+  },
+  {
+    "id": 34,
+    "title": "CS50P - Harvard Python Course",
+    "category": "Python",
+    "platform": "YouTube",
+    "instructor": "freeCodeCamp",
+    "thumbnail": "https://img.youtube.com/vi/nLRL_NcnK-4/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=nLRL_NcnK-4"
+  },
+  {
+    "id": 35,
+    "title": "C++ Placement Course",
+    "category": "C++",
+    "platform": "YouTube",
+    "instructor": "Apna College",
+    "thumbnail": "https://img.youtube.com/vi/z9bZufPHFLU/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6BWcbA6_ew_OEkbP"
+  },
+  {
+    "id": 36,
+    "title": "Java Placement Course",
+    "category": "OOPs",
+    "platform": "YouTube",
+    "instructor": "Apna College",
+    "thumbnail": "https://img.youtube.com/vi/yRpLlJmRo2w/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=yRpLlJmRo2w&list=PLfqMhTWNBTe3LtFWcvwpqTkUSlB32kJop"
+  },
+  {
+    "id": 37,
+    "title": "Striver's C++ STL Course",
+    "category": "C++",
+    "platform": "YouTube",
+    "instructor": "Striver (takeUforward)",
+    "thumbnail": "https://img.youtube.com/vi/RRVYpIET_RU/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=RRVYpIET_RU"
+  },
+  {
+    "id": 38,
+    "title": "Dynamic Programming Playlist",
+    "category": "DSA",
+    "platform": "YouTube",
+    "instructor": "Striver (takeUforward)",
+    "thumbnail": "https://img.youtube.com/vi/FfXoiwwnKAk/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=FfXoiwwnKAk&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY"
+  },
+  {
+    "id": 39,
+    "title": "Complete Web Development Bootcamp",
+    "category": "Web Development",
+    "platform": "YouTube",
+    "instructor": "Love Babbar (CodeHelp)",
+    "thumbnail": "https://img.youtube.com/vi/l1EssrLxt7E/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=l1EssrLxt7E&list=PLDzeHZWIZsTo0wSBcg4-NMIbC0L8evLrD"
+  },
+  {
+    "id": 40,
+    "title": "100 Days of Code: Python Tutorial",
+    "category": "Python",
+    "platform": "YouTube",
+    "instructor": "CodeWithHarry",
+    "thumbnail": "https://img.youtube.com/vi/7wnove7K-ZQ/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=7wnove7K-ZQ&list=PLu0W_9lII9agwh1XjRt242xIpHhPT2llg"
+  },
+  {
+    "id": 41,
+    "title": "C Language Tutorial for Beginners",
+    "category": "C",
+    "platform": "YouTube",
+    "instructor": "CodeWithHarry",
+    "thumbnail": "https://img.youtube.com/vi/ZSPZob_1TOk/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=ZSPZob_1TOk"
+  },
+  {
+    "id": 42,
+    "title": "C++ Tutorial for Beginners (Full Course)",
+    "category": "C++",
+    "platform": "YouTube",
+    "instructor": "CodeWithHarry",
+    "thumbnail": "https://img.youtube.com/vi/j8nAHeVKL08/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=j8nAHeVKL08&list=PLu0W_9lII9agp66wR6bMO0c_T609E2Bv6"
+  },
+  {
+    "id": 43,
+    "title": "Ultimate JavaScript Course",
+    "category": "Web Development",
+    "platform": "YouTube",
+    "instructor": "CodeWithHarry",
+    "thumbnail": "https://img.youtube.com/vi/ER9SspLe4Gc/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=ER9SspLe4Gc&list=PLu0W_9lII9ahR1blWU_PIYT0x32pC5x9-"
+  },
+  {
+    "id": 44,
+    "title": "C Language Full Course",
+    "category": "C",
+    "platform": "YouTube",
+    "instructor": "Apna College",
+    "thumbnail": "https://img.youtube.com/vi/irqbmMNs2Bo/hqdefault.jpg",
+    "link": "https://www.youtube.com/watch?v=irqbmMNs2Bo"
+  }
+]
