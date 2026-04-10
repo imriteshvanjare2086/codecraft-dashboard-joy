@@ -3,9 +3,13 @@ import { api } from "@/lib/apiClient";
 export type FriendUser = {
   _id: string;
   username: string;
+  email?: string;
+  profileImage?: string;
   streak: number;
   problemsSolved: number;
-  online: boolean;
+  platformStats?: Record<string, number>;
+  online?: boolean;
+  isMe?: boolean;
 };
 
 export async function fetchFriends() {
