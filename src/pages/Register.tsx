@@ -33,57 +33,57 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#050505] text-gray-100 flex items-center justify-center p-6">
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-md rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-6 space-y-4"
+        className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl p-8 space-y-5"
       >
         <div>
-          <h1 className="text-xl font-heading font-semibold text-foreground">Register</h1>
-          <p className="text-xs font-mono text-muted-foreground mt-1">Create your CodeTrack account</p>
+          <h1 className="text-2xl font-heading font-bold text-white tracking-tight">Create Account</h1>
+          <p className="text-xs font-mono text-gray-400 mt-1.5">Join the CodeTrack community</p>
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Username</label>
+          <label className="text-[10px] font-mono uppercase tracking-widest text-gray-500">Username</label>
           <Input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            className="rounded-xl border-border/60 bg-background/50"
+            className="rounded-xl border-white/10 bg-white/5 text-white placeholder:text-gray-500 focus-visible:ring-primary/50"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Email</label>
+          <label className="text-[10px] font-mono uppercase tracking-widest text-gray-500">Email</label>
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             required
-            className="rounded-xl border-border/60 bg-background/50"
+            className="rounded-xl border-white/10 bg-white/5 text-white placeholder:text-gray-500 focus-visible:ring-primary/50"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Password</label>
+          <label className="text-[10px] font-mono uppercase tracking-widest text-gray-500">Password</label>
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             required
-            className="rounded-xl border-border/60 bg-background/50"
+            className="rounded-xl border-white/10 bg-white/5 text-white placeholder:text-gray-500 focus-visible:ring-primary/50"
           />
         </div>
 
-        {error && <p className="text-xs font-mono text-destructive">{error}</p>}
+        {error && <p className="text-xs font-mono text-red-400">{error}</p>}
 
-        <Button type="submit" className="w-full rounded-xl font-mono text-xs" disabled={submitting}>
+        <Button type="submit" className="w-full rounded-xl font-mono text-xs bg-white text-black hover:bg-gray-200 transition-all font-bold mt-2" disabled={submitting}>
           {submitting ? "Creating…" : "Create account"}
         </Button>
 
-        <p className="text-xs font-mono text-muted-foreground text-center">
+        <p className="text-xs font-mono text-gray-500 text-center mt-6">
           Already have an account?{" "}
-          <Link to="/login" className="text-primary hover:underline">
+          <Link to="/login" className="text-primary hover:text-primary/80 transition-colors font-medium hover:underline">
             Sign in
           </Link>
         </p>

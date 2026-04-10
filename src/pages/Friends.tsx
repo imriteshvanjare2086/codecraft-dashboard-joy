@@ -269,7 +269,7 @@ function FriendsLeaderboard({ users }: { users: FriendUser[] }) {
                         {user.isMe && <Badge variant="secondary" className="text-[8px] py-0 px-1 bg-primary/10 text-primary border-primary/20">YOU</Badge>}
                       </span>
                       <span className="text-[10px] text-muted-foreground font-mono hidden sm:block italic">
-                        {index === 0 ? "Grandmaster" : index < 3 ? "Master" : "Challenger"}
+                        {index === 0 ? "Grandmaster" : index === 1 ? "Master" : index === 2 ? "Expert" : "Challenger"}
                       </span>
                     </div>
                   </Link>

@@ -33,12 +33,12 @@ const App = () => {
         <Toaster />
         <Sonner />
         {!ready ? (
-          <div className="min-h-screen bg-background flex items-center justify-center p-6">
-            <div className="max-w-md w-full rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-6">
-              <p className="text-sm font-mono text-foreground">Starting…</p>
-              {error && <p className="text-xs font-mono text-destructive mt-2">{error}</p>}
-              <p className="text-[10px] font-mono text-muted-foreground mt-3">
-                If this hangs, start the backend and MongoDB, then refresh.
+          <div className="min-h-screen bg-[#050505] flex items-center justify-center p-6">
+            <div className="max-w-md w-full rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl p-8">
+              <p className="text-sm font-mono text-gray-100 italic">Starting CodeTrack...</p>
+              {error && <p className="text-xs font-mono text-red-400 mt-2">{error}</p>}
+              <p className="text-[10px] font-mono text-gray-500 mt-4 leading-relaxed">
+                If this hangs, please ensure the backend and MongoDB are running, then refresh the page.
               </p>
             </div>
           </div>

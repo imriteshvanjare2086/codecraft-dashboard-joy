@@ -79,7 +79,7 @@ export default function Login() {
 
         {error && <p className="text-xs font-mono text-red-400">{error}</p>}
 
-        <Button type="submit" className="w-full rounded-xl font-mono text-xs hover:bg-primary/90 mt-2" disabled={submitting}>
+        <Button type="submit" className="w-full rounded-xl font-mono text-xs bg-white text-black hover:bg-gray-200 transition-all font-bold mt-2" disabled={submitting}>
           {submitting ? "Signing in…" : "Sign in"}
         </Button>
 

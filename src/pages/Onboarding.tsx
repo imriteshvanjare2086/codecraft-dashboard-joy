@@ -50,7 +50,7 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#050505] text-gray-100 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -61,8 +61,8 @@ export default function Onboarding() {
           <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-primary/70 shadow-lg shadow-primary/20 mb-4">
             <Flame className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold font-heading text-foreground">Welcome to CodeTrack</h1>
-          <p className="text-sm text-muted-foreground font-mono mt-1">Let's set up your profile</p>
+          <h1 className="text-2xl font-bold font-heading text-white">Welcome to CodeTrack</h1>
+          <p className="text-sm text-gray-400 font-mono mt-1">Let's set up your profile</p>
         </div>
 
         {/* Progress */}
@@ -79,8 +79,8 @@ export default function Onboarding() {
           {step === 0 && <Link2 className="h-4 w-4 text-primary" />}
           {step === 1 && <Target className="h-4 w-4 text-primary" />}
           {step === 2 && <Zap className="h-4 w-4 text-primary" />}
-          <span className="text-sm font-heading font-semibold text-foreground">{steps[step]}</span>
-          <span className="text-[10px] font-mono text-muted-foreground ml-auto">{step + 1}/{steps.length}</span>
+          <span className="text-sm font-heading font-semibold text-white">{steps[step]}</span>
+          <span className="text-[10px] font-mono text-gray-500 ml-auto">{step + 1}/{steps.length}</span>
         </div>
 
         {/* Content */}
@@ -91,7 +91,7 @@ export default function Onboarding() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.2 }}
-            className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-5"
+            className="rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl p-6"
           >
             {step === 0 && (
               <div className="space-y-3">
@@ -100,11 +100,11 @@ export default function Onboarding() {
                     key={p.id}
                     onClick={() => togglePlatform(p.id)}
                     className={`w-full flex items-center gap-3 rounded-xl border p-4 transition-all ${
-                      selectedPlatforms.includes(p.id) ? `${p.color} ring-1 ring-primary/20` : "border-border/30 bg-muted/20 hover:bg-muted/30"
+                      selectedPlatforms.includes(p.id) ? `${p.color} ring-1 ring-primary/20` : "border-white/5 bg-white/5 hover:bg-white/10"
                     }`}
                   >
                     <span className="text-2xl">{p.icon}</span>
-                    <span className="text-sm font-mono font-semibold text-foreground flex-1 text-left">{p.name}</span>
+                    <span className="text-sm font-mono font-semibold text-white flex-1 text-left">{p.name}</span>
                     {selectedPlatforms.includes(p.id) && (
                       <>
                         <input
@@ -113,7 +113,7 @@ export default function Onboarding() {
                           value={usernames[p.id] || ""}
                           onChange={(e) => { e.stopPropagation(); setUsernames({ ...usernames, [p.id]: e.target.value }); }}
                           onClick={(e) => e.stopPropagation()}
-                          className="w-32 px-2.5 py-1.5 rounded-lg bg-background/50 border border-border/40 text-xs font-mono text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/40"
+                          className="w-32 px-2.5 py-1.5 rounded-lg bg-[#050505] border border-white/10 text-xs font-mono text-white placeholder:text-gray-600 focus:outline-none focus:border-primary/40"
                         />
                         <Check className="h-4 w-4 text-primary" />
                       </>
@@ -130,12 +130,12 @@ export default function Onboarding() {
                     key={g.id}
                     onClick={() => setSelectedGoal(g.id)}
                     className={`flex flex-col items-center gap-2 rounded-xl border p-4 transition-all text-center ${
-                      selectedGoal === g.id ? "border-primary/30 bg-primary/5 ring-1 ring-primary/20" : "border-border/30 bg-muted/20 hover:bg-muted/30"
+                      selectedGoal === g.id ? "border-primary/30 bg-primary/5 ring-1 ring-primary/20" : "border-white/5 bg-white/5 hover:bg-white/10"
                     }`}
                   >
                     <span className="text-3xl">{g.icon}</span>
-                    <span className="text-xs font-mono font-semibold text-foreground">{g.name}</span>
-                    <span className="text-[10px] font-mono text-muted-foreground">{g.description}</span>
+                    <span className="text-xs font-mono font-semibold text-white">{g.name}</span>
+                    <span className="text-[10px] font-mono text-gray-400">{g.description}</span>
                   </button>
                 ))}
               </div>
@@ -148,13 +148,13 @@ export default function Onboarding() {
                     key={t.value}
                     onClick={() => setDailyTarget(t.value)}
                     className={`w-full flex items-center gap-3 rounded-xl border p-4 transition-all ${
-                      dailyTarget === t.value ? "border-primary/30 bg-primary/5 ring-1 ring-primary/20" : "border-border/30 bg-muted/20 hover:bg-muted/30"
+                      dailyTarget === t.value ? "border-primary/30 bg-primary/5 ring-1 ring-primary/20" : "border-white/5 bg-white/5 hover:bg-white/10"
                     }`}
                   >
                     <span className="text-lg font-heading font-bold text-primary">{t.value}</span>
                     <div className="text-left flex-1">
-                      <span className="text-xs font-mono font-semibold text-foreground block">{t.label}</span>
-                      <span className="text-[10px] font-mono text-muted-foreground">{t.description}</span>
+                      <span className="text-xs font-mono font-semibold text-white block">{t.label}</span>
+                      <span className="text-[10px] font-mono text-gray-400">{t.description}</span>
                     </div>
                     {dailyTarget === t.value && <Check className="h-4 w-4 text-primary" />}
                   </button>
@@ -169,7 +169,7 @@ export default function Onboarding() {
           <button
             onClick={() => setStep((s) => s - 1)}
             disabled={step === 0}
-            className="flex items-center gap-1 px-4 py-2 rounded-xl text-xs font-mono text-muted-foreground hover:text-foreground transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="flex items-center gap-1 px-4 py-2 rounded-xl text-xs font-mono text-gray-500 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="h-3.5 w-3.5" /> Back
           </button>

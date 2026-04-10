@@ -98,7 +98,7 @@ export default function Leaderboard() {
                             {user.username}
                           </span>
                           <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">
-                            {index === 0 ? "Grandmaster" : index < 3 ? "Master" : "Challenger"}
+                            {index === 0 ? "Grandmaster" : index === 1 ? "Master" : index === 2 ? "Expert" : index < 10 ? "Challenger" : "Rookie"}
                           </span>
                         </div>
                       </Link>

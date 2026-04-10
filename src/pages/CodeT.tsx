@@ -83,8 +83,9 @@ export default function CodeT() {
       };
       setSessions((prev) => [newSession, ...prev]);
       setActiveSessionId(newId);
-      processAIResponse(newId, msg);
+      processAIResponse(newId, msg, []);
     } else {
+      const currentHistory = activeSession.messages.map(m => ({ role: m.role, content: m.content }));
       setSessions((prev) =>
         prev.map((s) =>
           s.id === activeSessionId
@@ -97,16 +98,17 @@ export default function CodeT() {
             : s
         )
       );
-      processAIResponse(activeSessionId, msg);
+      processAIResponse(activeSessionId, msg, currentHistory);
     }
   };
 
-  const processAIResponse = async (sessionId: string, userMsg: string) => {
+  const processAIResponse = async (sessionId: string, userMsg: string, history: Message[]) => {
     setIsLoading(true);
     try {
       const client = await Client.connect("aaryanpethkar48/student-coding-assistant");
       const result = await client.predict("/respond", { 
         message: userMsg, 
+        history: history,
       });
 
       const aiText = String((result as any).data || "I couldn't generate a response. Please try again.");
