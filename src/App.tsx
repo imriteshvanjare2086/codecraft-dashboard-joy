@@ -21,6 +21,8 @@ import Notes from "./pages/Notes.tsx";
 import Courses from "./pages/Courses.tsx";
 import Goals from "./pages/Goals.tsx";
 import CodeT from "./pages/CodeT.tsx";
+import BattleArena from "./pages/BattleArena.tsx";
+import Certifications from "./pages/Certifications.tsx";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +66,8 @@ const App = () => {
               <Route path="/focus" element={<ProtectedRoute><FocusMode /></ProtectedRoute>} />
               <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
               <Route path="/codet" element={<ProtectedRoute><CodeT /></ProtectedRoute>} />
+              <Route path="/battle" element={<ProtectedRoute><BattleArena /></ProtectedRoute>} />
+              <Route path="/certifications" element={<ProtectedRoute><Certifications /></ProtectedRoute>} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

@@ -1,4 +1,5 @@
 import { api } from "@/lib/apiClient";
+import { populateUserData } from "./user";
 
 export type FriendUser = {
   _id: string;
@@ -14,12 +15,28 @@ export type FriendUser = {
 
 export async function fetchFriends() {
   const res = await api.get("/friends");
-  return res.data.friends as FriendUser[];
+  let data = res.data.friends as FriendUser[];
+  
+  data = data.map((u) => {
+    const pop = populateUserData(u);
+    return { ...u, ...pop };
+  });
+
+  data.sort((a, b) => b.problemsSolved - a.problemsSolved);
+
+  return data;
 }
 
 export async function searchUsers(query: string) {
   const res = await api.get(`/users/search?q=${encodeURIComponent(query)}`);
-  return res.data as FriendUser[];
+  let data = res.data as FriendUser[];
+  
+  data = data.map((u) => {
+    const pop = populateUserData(u);
+    return { ...u, ...pop };
+  });
+
+  return data;
 }
 
 export async function addFriend(friendId: string) {
