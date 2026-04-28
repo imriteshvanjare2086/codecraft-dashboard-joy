@@ -138,7 +138,7 @@ export function HeroStats({ stats: externalStats }: { stats?: HeroStatsData }) {
         </div>
       </div>
 
-      <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
         {cards.map((card, i) => (
           <motion.div
             key={card.label}

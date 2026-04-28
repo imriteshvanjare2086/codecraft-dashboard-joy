@@ -73,14 +73,15 @@ export default function Leaderboard() {
           >
             <div className="absolute inset-0 bg-gradient-to-b from-foreground/[0.02] to-transparent pointer-events-none" />
             
-            <Table>
-              <TableHeader className="bg-muted/10">
+            <div className="w-full overflow-x-auto pb-4">
+              <Table className="min-w-[600px] lg:min-w-full">
+                <TableHeader className="bg-muted/10">
                 <TableRow className="hover:bg-transparent border-foreground/5 uppercase tracking-[0.2em] font-mono text-[10px]">
-                  <TableHead className="w-[100px] text-center font-black">Rank</TableHead>
+                  <TableHead className="w-[80px] sm:w-[100px] text-center font-black">Rank</TableHead>
                   <TableHead className="font-black">Coder</TableHead>
                   <TableHead className="text-right font-black">Solved</TableHead>
-                  <TableHead className="text-right font-black">Streak</TableHead>
-                  <TableHead className="text-right font-black pr-8">Platforms</TableHead>
+                  <TableHead className="hidden sm:table-cell text-right font-black">Streak</TableHead>
+                  <TableHead className="hidden md:table-cell text-right font-black pr-8">Platforms</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -141,7 +142,7 @@ export default function Leaderboard() {
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="hidden sm:table-cell text-right">
                         <div className="flex items-center justify-end gap-2 pr-2">
                           <div className={cn(
                             "flex items-center gap-1.5 px-3 py-1 rounded-2xl border transition-all duration-500",
@@ -154,7 +155,7 @@ export default function Leaderboard() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right pr-8">
+                      <TableCell className="hidden md:table-cell text-right pr-8">
                         <div className="flex items-center justify-end gap-2">
                           {Object.entries(user.platformStats || {}).map(([platform, count], i) => (
                             <div 
@@ -176,7 +177,8 @@ export default function Leaderboard() {
                   ))}
                 </AnimatePresence>
               </TableBody>
-            </Table>
+              </Table>
+            </div>
             
             {(!users || users.length === 0) && (
               <div className="py-24 text-center group/no-results">

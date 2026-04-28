@@ -15,13 +15,11 @@ dotenv.config();
 const app = express();
 
 // -------------------- MIDDLEWARE --------------------
-app.use(cors({
-  origin: "https://codecraft-dashboard-joy.vercel.app", // restrict frontend
-}));
+app.use(cors()); // Allow all origins for easier debugging
 app.use(express.json());
 
 // -------------------- GOOGLE CLIENT --------------------
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const client = new OAuth2Client(); // Audience is passed during verification
 
 // -------------------- ROUTES --------------------
 
@@ -38,6 +36,11 @@ app.post("/api/auth/google", async (req, res) => {
 
     if (!credential) {
       return res.status(400).json({ message: "Token is required" });
+    }
+
+    if (!process.env.GOOGLE_CLIENT_ID) {
+      console.error("CRITICAL: GOOGLE_CLIENT_ID is missing in server .env");
+      return res.status(500).json({ message: "Server configuration error (Missing Client ID)" });
     }
 
     const ticket = await client.verifyIdToken({

@@ -229,7 +229,8 @@ function FriendsLeaderboard({ users }: { users: FriendUser[] }) {
       animate={{ opacity: 1, scale: 1 }}
       className="rounded-[2rem] border border-foreground/10 bg-card/30 backdrop-blur-3xl overflow-hidden shadow-2xl premium-border"
     >
-      <Table>
+      <div className="w-full overflow-x-auto pb-4">
+        <Table className="min-w-[500px] lg:min-w-full">
         <TableHeader className="bg-muted/10">
           <TableRow className="hover:bg-transparent border-foreground/5 uppercase tracking-[0.2em] font-mono text-[9px]">
             <TableHead className="w-[80px] text-center font-black">Rank</TableHead>
@@ -307,8 +308,9 @@ function FriendsLeaderboard({ users }: { users: FriendUser[] }) {
               </TableCell>
             </TableRow>
           ))}
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+      </div>
     </motion.div>
   );
 }
