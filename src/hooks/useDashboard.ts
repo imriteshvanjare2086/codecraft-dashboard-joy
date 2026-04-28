@@ -2,8 +2,52 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/apiClient";
 import { populateUserData } from "@/services/user";
 
+export interface DashboardData {
+  profile: any;
+  heroStats: {
+    totalProblems: number;
+    totalSubmissions: number;
+    currentStreak: number;
+    activeDays: number;
+    longestStreak: number;
+    level: string;
+    badges: any[];
+  };
+  leetcodeStats: {
+    totalSolved: number;
+    rating: number;
+    contests: number;
+    ranking: number;
+    acceptanceRate: number;
+  };
+  codeforcesStats: {
+    solved: number;
+    rating: number;
+    contests: number;
+    rank: string;
+  };
+  codechefStats: {
+    solved: number;
+    rating: number;
+    contests: number;
+    stars: number;
+  };
+  ratingHistory: {
+    codeforces: any[];
+    leetcode: any[];
+  };
+  dailyGoal: {
+    target: number;
+    completed: number;
+    label: string;
+  };
+  leaderboard: any[];
+  recommendations: string[];
+  stats: any;
+}
+
 export function useDashboard(userId?: string) {
-  return useQuery({
+  return useQuery<DashboardData>({
     queryKey: ["dashboard", userId],
     queryFn: async () => {
       const endpoint = userId ? `/users/${userId}` : "/user/profile";
@@ -43,23 +87,23 @@ export function useDashboard(userId?: string) {
           ]
         },
         leetcodeStats: {
-          totalSolved: user.platformStats.leetcode,
-          rating: 1982,
-          contests: 45,
-          ranking: 15423,
-          acceptanceRate: 68.4
+          totalSolved: user.platformStats?.leetcode || 0,
+          rating: 0,
+          contests: 0,
+          ranking: 0,
+          acceptanceRate: 0
         },
         codeforcesStats: {
-          solved: user.platformStats.codeforces,
-          rating: 1650,
-          contests: 28,
-          rank: "Expert"
+          solved: user.platformStats?.codeforces || 0,
+          rating: 0,
+          contests: 0,
+          rank: "Unrated"
         },
         codechefStats: {
-          solved: user.platformStats.codechef,
-          rating: 1820,
-          contests: 38,
-          stars: 4
+          solved: user.platformStats?.codechef || 0,
+          rating: 0,
+          contests: 0,
+          stars: 0
         },
         ratingHistory: {
           codeforces: [

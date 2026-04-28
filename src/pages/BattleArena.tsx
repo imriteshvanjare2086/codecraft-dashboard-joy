@@ -21,13 +21,13 @@ interface PlayerStats {
 export default function BattleArena() {
   const [player1, setPlayer1] = useState('');
   const [player2, setPlayer2] = useState('');
-  
+
   const [stats1, setStats1] = useState<PlayerStats | null>(null);
   const [stats2, setStats2] = useState<PlayerStats | null>(null);
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   const [battleStarted, setBattleStarted] = useState(false);
   const navigate = useNavigate();
 
@@ -36,27 +36,27 @@ export default function BattleArena() {
       setError("Please enter both usernames");
       return;
     }
-    
+
     setIsLoading(true);
     setError(null);
     setBattleStarted(false);
-    
+
     try {
       const [res1, res2] = await Promise.all([
         api.get(`/user-stats/${player1.trim()}`),
         api.get(`/user-stats/${player2.trim()}`)
       ]);
-      
+
       const p1Raw = res1.data;
       const p2Raw = res2.data;
 
       // Ensure data matches dashboard exactly by applying the same deterministic generation
       const p1Populated = populateUserData(p1Raw);
       const p2Populated = populateUserData(p2Raw);
-      
+
       const hash1 = Array.from(p1Raw.username || "User").reduce((acc, char: any) => acc + char.charCodeAt(0), 0);
       const hash2 = Array.from(p2Raw.username || "User").reduce((acc, char: any) => acc + char.charCodeAt(0), 0);
-      
+
       setStats1({
         username: p1Raw.username,
         problemsSolved: p1Populated.problemsSolved,
@@ -93,12 +93,12 @@ export default function BattleArena() {
   };
 
   const calculateScore = (stats: PlayerStats) => {
-    return (stats.problemsSolved * 2) + 
-           (stats.leetcodeRating) + 
-           (stats.codeforcesRating) + 
-           (stats.codechefRating) + 
-           (stats.maxStreak * 10) + 
-           (stats.badges * 50);
+    return (stats.problemsSolved * 2) +
+      (stats.leetcodeRating) +
+      (stats.codeforcesRating) +
+      (stats.codechefRating) +
+      (stats.maxStreak * 10) +
+      (stats.badges * 50);
   };
 
   let winner = 0; // 0 for draw, 1 for player1, 2 for player2
@@ -112,7 +112,7 @@ export default function BattleArena() {
   const renderMetricRow = (label: string, val1: number, val2: number, suffix = "") => {
     const p1Wins = val1 > val2;
     const p2Wins = val2 > val1;
-    
+
     return (
       <div className="grid grid-cols-3 gap-4 items-center py-4 border-b border-slate-100 dark:border-white/5 last:border-0">
         <div className={`text-center font-mono font-bold text-lg ${p1Wins ? 'text-emerald-500 dark:text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'text-slate-500 dark:text-slate-400'}`}>
@@ -135,7 +135,7 @@ export default function BattleArena() {
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Exit Button */}
-      <button 
+      <button
         onClick={() => navigate('/')}
         className="absolute top-6 left-6 z-50 flex items-center gap-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors group"
       >
@@ -148,14 +148,14 @@ export default function BattleArena() {
       <div className="max-w-5xl mx-auto relative z-10 pt-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.div 
+          <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             className="inline-flex items-center justify-center p-3 mb-6 rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-orange-500/30 ring-1 ring-white/10 shadow-[0_0_30px_rgba(249,115,22,0.3)]"
           >
             <Swords className="w-8 h-8 text-orange-400" />
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.1 }}
@@ -163,7 +163,7 @@ export default function BattleArena() {
           >
             Code Battle <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Arena</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -176,7 +176,7 @@ export default function BattleArena() {
         {/* Players Input Section */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-12">
           {/* Player 1 Card */}
-          <motion.div 
+          <motion.div
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -187,11 +187,11 @@ export default function BattleArena() {
               <label className="block text-xs font-mono text-orange-500 dark:text-orange-400 font-bold uppercase tracking-widest mb-3">Player 1</label>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={player1}
                   onChange={(e) => setPlayer1(e.target.value)}
-                  placeholder="Enter username" 
+                  placeholder="Enter username"
                   className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/5 rounded-xl py-3 pl-10 pr-4 text-slate-900 dark:text-white font-mono placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all"
                 />
               </div>
@@ -199,7 +199,7 @@ export default function BattleArena() {
           </motion.div>
 
           {/* VS Badge */}
-          <motion.div 
+          <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.5, type: 'spring' }}
@@ -212,7 +212,7 @@ export default function BattleArena() {
           </motion.div>
 
           {/* Player 2 Card */}
-          <motion.div 
+          <motion.div
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -223,11 +223,11 @@ export default function BattleArena() {
               <label className="block text-xs font-mono text-blue-500 dark:text-blue-400 font-bold uppercase tracking-widest mb-3">Player 2</label>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={player2}
                   onChange={(e) => setPlayer2(e.target.value)}
-                  placeholder="Enter username" 
+                  placeholder="Enter username"
                   className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/5 rounded-xl py-3 pl-10 pr-4 text-slate-900 dark:text-white font-mono placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                 />
               </div>
@@ -260,10 +260,10 @@ export default function BattleArena() {
               )}
             </div>
           </motion.button>
-          
+
           <AnimatePresence>
             {error && (
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -286,19 +286,18 @@ export default function BattleArena() {
             >
               {/* Winner Banner */}
               <div className="flex justify-center mb-12">
-                <div className={`px-8 py-4 rounded-2xl border ${
-                  winner === 1 ? 'bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/50 shadow-[0_0_40px_rgba(249,115,22,0.15)] dark:shadow-[0_0_40px_rgba(249,115,22,0.3)]' :
-                  winner === 2 ? 'bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/50 shadow-[0_0_40px_rgba(59,130,246,0.15)] dark:shadow-[0_0_40px_rgba(59,130,246,0.3)]' :
-                  'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/20'
-                } backdrop-blur-md`}>
+                <div className={`px-8 py-4 rounded-2xl border ${winner === 1 ? 'bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/50 shadow-[0_0_40px_rgba(249,115,22,0.15)] dark:shadow-[0_0_40px_rgba(249,115,22,0.3)]' :
+                    winner === 2 ? 'bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/50 shadow-[0_0_40px_rgba(59,130,246,0.15)] dark:shadow-[0_0_40px_rgba(59,130,246,0.3)]' :
+                      'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/20'
+                  } backdrop-blur-md`}>
                   <h2 className="text-2xl md:text-3xl font-black font-heading tracking-tighter text-center flex items-center gap-3">
                     {winner === 1 && <Trophy className="w-8 h-8 text-orange-500 dark:text-orange-400" />}
                     {winner === 2 && <Trophy className="w-8 h-8 text-blue-500 dark:text-blue-400" />}
-                    
+
                     {winner === 1 && <span className="text-orange-500 dark:text-orange-400">WINNER: {stats1.username.toUpperCase()}</span>}
                     {winner === 2 && <span className="text-blue-500 dark:text-blue-400">WINNER: {stats2.username.toUpperCase()}</span>}
                     {winner === 0 && <span className="text-slate-500 dark:text-slate-300">IT'S A DRAW</span>}
-                    
+
                     {winner === 1 && <Trophy className="w-8 h-8 text-orange-500 dark:text-orange-400" />}
                     {winner === 2 && <Trophy className="w-8 h-8 text-blue-500 dark:text-blue-400" />}
                   </h2>
@@ -308,7 +307,7 @@ export default function BattleArena() {
               {/* Comparison Table */}
               <div className="bg-white dark:bg-[#1A1A1E] border border-slate-200 dark:border-white/10 rounded-3xl p-8 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] relative overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-white/30 to-transparent" />
-                
+
                 <div className="grid grid-cols-3 gap-4 mb-8">
                   <div className="text-center font-heading font-black text-xl text-orange-500 dark:text-orange-400">{stats1.username}</div>
                   <div className="text-center font-mono text-xs text-slate-500 uppercase tracking-widest font-bold flex items-center justify-center">Metrics</div>
@@ -319,12 +318,12 @@ export default function BattleArena() {
                   {renderMetricRow("Problems Solved", stats1.problemsSolved, stats2.problemsSolved)}
                   {renderMetricRow("Max Streak", stats1.maxStreak, stats2.maxStreak)}
                   {renderMetricRow("Badges Earned", stats1.badges, stats2.badges)}
-                  
+
                   {/* Platform Stats */}
                   <div className="py-2">
                     <div className="w-full h-px bg-slate-100 dark:bg-white/5 my-2" />
                   </div>
-                  
+
                   {renderMetricRow("LeetCode Solved", stats1.leetcodeSolved, stats2.leetcodeSolved)}
                   {renderMetricRow("LeetCode Rating", stats1.leetcodeRating, stats2.leetcodeRating)}
                   {renderMetricRow("Codeforces Solved", stats1.codeforcesSolved, stats2.codeforcesSolved)}

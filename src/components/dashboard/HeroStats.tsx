@@ -96,11 +96,23 @@ export function HeroStats({ stats: externalStats }: { stats?: HeroStatsData }) {
   ].slice(0, 8);
 
   const cards = statCards.map((c) => {
-    if (c.label === "Total Problems") return { ...c, value: stats.totalProblems, isNumeric: true };
-    if (c.label === "Current Streak") return { ...c, value: stats.currentStreak, suffix: " days", isNumeric: true };
-    if (c.label === "Level") return { ...c, value: stats.level, isNumeric: false };
-    if (c.label === "Longest Streak") return { ...c, value: stats.longestStreak, suffix: " days", isNumeric: true };
-    return c;
+    let card = { ...c };
+    if (c.label === "Total Problems") {
+      card.value = stats.totalProblems;
+      card.isNumeric = true;
+    } else if (c.label === "Current Streak") {
+      card.value = stats.currentStreak;
+      card.suffix = " days";
+      card.isNumeric = true;
+    } else if (c.label === "Level") {
+      card.value = stats.level;
+      card.isNumeric = false;
+    } else if (c.label === "Longest Streak") {
+      card.value = stats.longestStreak;
+      card.suffix = " days";
+      card.isNumeric = true;
+    }
+    return card;
   });
 
   return (
