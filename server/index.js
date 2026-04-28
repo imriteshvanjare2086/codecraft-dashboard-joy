@@ -9,24 +9,27 @@ import bcrypt from "bcryptjs";
 import User from "./models/User.js";
 import auth from "./middleware/auth.js";
 
-// Load environment variables (Render compatible)
+// Load env
 dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// -------------------- MIDDLEWARE --------------------
+app.use(cors({
+  origin: "https://codecraft-dashboard-joy.vercel.app", // restrict frontend
+}));
 app.use(express.json());
 
-// Google Client
+// -------------------- GOOGLE CLIENT --------------------
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // -------------------- ROUTES --------------------
 
-// Test route
+// Test
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
+
 
 // 🔥 GOOGLE AUTH
 app.post("/api/auth/google", async (req, res) => {
@@ -69,16 +72,13 @@ app.post("/api/auth/google", async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.json({
-      message: "Google login successful",
-      token,
-      user,
-    });
+    res.json({ message: "Google login successful", token, user });
   } catch (err) {
     console.error("Google Auth Error:", err);
     res.status(500).json({ message: "Google authentication failed" });
   }
 });
+
 
 // 🔥 REGISTER
 app.post("/api/auth/register", async (req, res) => {
@@ -120,6 +120,7 @@ app.post("/api/auth/register", async (req, res) => {
   }
 });
 
+
 // 🔥 LOGIN
 app.post("/api/auth/login", async (req, res) => {
   try {
@@ -141,17 +142,14 @@ app.post("/api/auth/login", async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.json({
-      message: "Login successful",
-      token,
-      user,
-    });
+    res.json({ message: "Login successful", token, user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// 🔥 PROTECTED ROUTE
+
+// 🔥 PROFILE
 app.get("/api/user/profile", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.userId).select("-password");
@@ -161,15 +159,33 @@ app.get("/api/user/profile", auth, async (req, res) => {
   }
 });
 
-// -------------------- DATABASE --------------------
 
+// 🔥 SEARCH USERS (FIXED + IMPORTANT)
+app.get("/api/users/search", auth, async (req, res) => {
+  try {
+    const query = req.query.query || "";
+
+    const users = await User.find({
+      username: { $regex: query, $options: "i" },
+      _id: { $ne: req.user.userId }
+    }).select("username email profileImage");
+
+    res.json(users);
+  } catch (err) {
+    console.error("Search Error:", err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+// -------------------- DATABASE --------------------
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("Mongo Error:", err));
 
-// -------------------- SERVER --------------------
 
+// -------------------- SERVER --------------------
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {

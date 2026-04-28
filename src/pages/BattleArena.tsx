@@ -114,22 +114,25 @@ export default function BattleArena() {
     const p2Wins = val2 > val1;
 
     return (
-      <div className="grid grid-cols-3 gap-4 items-center py-4 border-b border-slate-100 dark:border-white/5 last:border-0">
-        <div className={`text-center font-mono font-bold text-lg ${p1Wins ? 'text-emerald-500 dark:text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'text-slate-500 dark:text-slate-400'}`}>
-          {val1}{suffix}
-        </div>
-        <div className="text-center font-heading font-semibold text-sm text-slate-600 dark:text-slate-300 uppercase tracking-widest">
+      <div className="flex flex-col justify-center items-center p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 relative overflow-hidden transition-transform hover:scale-[1.02]">
+        <div className="text-center font-heading font-semibold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">
           {label}
         </div>
-        <div className={`text-center font-mono font-bold text-lg ${p2Wins ? 'text-emerald-500 dark:text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'text-slate-500 dark:text-slate-400'}`}>
-          {val2}{suffix}
+        <div className="flex items-center justify-between w-full px-2">
+          <div className={`text-center font-mono font-bold text-xl ${p1Wins ? 'text-orange-500 dark:text-orange-400 drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]' : 'text-slate-400 dark:text-slate-500'}`}>
+            {val1}{suffix}
+          </div>
+          <div className="w-px h-8 bg-slate-200 dark:bg-white/10 mx-2" />
+          <div className={`text-center font-mono font-bold text-xl ${p2Wins ? 'text-blue-500 dark:text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]' : 'text-slate-400 dark:text-slate-500'}`}>
+            {val2}{suffix}
+          </div>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0A0A0B] text-slate-900 dark:text-white p-8 overflow-hidden relative">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0A0A0B] text-slate-900 dark:text-white p-8 overflow-x-hidden w-full max-w-full relative">
       {/* Background decorations */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-yellow-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
@@ -174,7 +177,7 @@ export default function BattleArena() {
         </div>
 
         {/* Players Input Section */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-12">
+        <div className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-8 mb-12">
           {/* Player 1 Card */}
           <motion.div
             initial={{ x: -50, opacity: 0 }}
@@ -308,25 +311,21 @@ export default function BattleArena() {
               <div className="bg-white dark:bg-[#1A1A1E] border border-slate-200 dark:border-white/10 rounded-3xl p-8 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] relative overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-white/30 to-transparent" />
 
-                <div className="grid grid-cols-3 gap-4 mb-8">
-                  <div className="text-center font-heading font-black text-xl text-orange-500 dark:text-orange-400">{stats1.username}</div>
-                  <div className="text-center font-mono text-xs text-slate-500 uppercase tracking-widest font-bold flex items-center justify-center">Metrics</div>
-                  <div className="text-center font-heading font-black text-xl text-blue-500 dark:text-blue-400">{stats2.username}</div>
+                <div className="flex justify-between items-center mb-8 px-4">
+                  <div className="text-center font-heading font-black text-2xl text-orange-500 dark:text-orange-400 drop-shadow-[0_0_10px_rgba(249,115,22,0.5)]">{stats1.username}</div>
+                  <div className="text-center font-mono text-xs text-slate-500 uppercase tracking-widest font-bold flex items-center justify-center bg-slate-100 dark:bg-white/10 px-3 py-1 rounded-full">VS</div>
+                  <div className="text-center font-heading font-black text-2xl text-blue-500 dark:text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">{stats2.username}</div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {renderMetricRow("Problems Solved", stats1.problemsSolved, stats2.problemsSolved)}
                   {renderMetricRow("Max Streak", stats1.maxStreak, stats2.maxStreak)}
                   {renderMetricRow("Badges Earned", stats1.badges, stats2.badges)}
 
-                  {/* Platform Stats */}
-                  <div className="py-2">
-                    <div className="w-full h-px bg-slate-100 dark:bg-white/5 my-2" />
-                  </div>
-
                   {renderMetricRow("LeetCode Solved", stats1.leetcodeSolved, stats2.leetcodeSolved)}
                   {renderMetricRow("LeetCode Rating", stats1.leetcodeRating, stats2.leetcodeRating)}
                   {renderMetricRow("Codeforces Solved", stats1.codeforcesSolved, stats2.codeforcesSolved)}
+                  
                   {renderMetricRow("Codeforces Rating", stats1.codeforcesRating, stats2.codeforcesRating)}
                   {renderMetricRow("CodeChef Solved", stats1.codechefSolved, stats2.codechefSolved)}
                   {renderMetricRow("CodeChef Rating", stats1.codechefRating, stats2.codechefRating)}
