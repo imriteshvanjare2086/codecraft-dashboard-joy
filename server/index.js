@@ -264,6 +264,28 @@ app.get("/api/users/:userId", auth, async (req, res) => {
   }
 });
 
+// 🔥 GET USER BY USERNAME API (for Battle Arena)
+app.get("/api/user-stats/:username", auth, async (req, res) => {
+  try {
+    const { username } = req.params;
+    console.log(`Battle Arena: Fetching stats for username: ${username}`);
+    
+    // Case-insensitive search for username
+    const user = await User.findOne({ 
+      username: { $regex: new RegExp("^" + username + "$", "i") } 
+    }).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: `User "${username}" not found` });
+    }
+    
+    res.json(user);
+  } catch (err) {
+    console.error("Fetch User Stats Error:", err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Add friend API (Follow)
 app.post("/api/friends/add", auth, async (req, res) => {
   try {
